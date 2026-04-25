@@ -748,10 +748,10 @@ select.mform-control{cursor:pointer;}
           <svg viewBox="0 0 16 16"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M10 10l1.5 1.5L14 9"/></svg>Il mio account
         </button>
       </div>
- <div class="nav-section">
+      <div class="nav-section">
         <div class="nav-label">Programmazione</div>
         <button class="nav-item" id="anav-progcategorie" onclick="showAPage('progcategorie')">
-          <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h3"/><circle cx="13" cy="13" r="3" fill="var(--navy)"/><path d="M12 13h2M13 12v2" stroke="#fff" stroke-width="1.2"/></svg>Categorie prog.
+          <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h3"/></svg>Categorie prog.
         </button>
         <button class="nav-item" id="anav-progdipendenti" onclick="showAPage('progdipendenti')">
           <svg viewBox="0 0 16 16"><circle cx="6" cy="5" r="3"/><path d="M1 14c0-2.8 2.2-5 5-5"/><circle cx="12" cy="11" r="3"/><path d="M10.5 11h3M12 9.5v3"/></svg>Dipendenti prog.
@@ -914,9 +914,12 @@ select.mform-control{cursor:pointer;}
       </div>
     </div>
   </div>
-  <div class="apage" id="apage-progcategorie">
+  <div class="apage" id="apage-progcategorie-dummy" style="display:none"></div>
+  <div class="apage" id="apage-progdipendenti-dummy" style="display:none"></div>
+
+      <div class="apage" id="apage-progcategorie">
         <div class="page-title">Categorie Programmazione</div>
-        <div class="page-sub">Gestisci le categorie (mansioni) soggette a programmazione turni. Trascina per riordinare.</div>
+        <div class="page-sub">Gestisci le categorie soggette a programmazione turni.</div>
         <div class="table-card" style="max-width:500px;">
           <div class="table-toolbar">
             <span class="table-toolbar-title" id="countProgCat">—</span>

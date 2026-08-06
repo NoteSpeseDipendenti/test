@@ -73,14 +73,18 @@ main#app-main{padding:1.4rem 1.8rem;}
 .ce-pill-noassoc:not(.active){border-color:var(--border);color:var(--muted);background:var(--surface2);}
 .ce-pill-noassoc:not(.active) .ce-pill-cnt{background:var(--border);color:var(--muted);}
 .ce-pill-sm{padding:4px 12px;font-size:.74rem;}
-.ce-pill-dainviare{border-color:var(--amm);color:var(--amm);background:var(--amm-l);}
-.ce-pill-dainviare .ce-pill-cnt{background:var(--amm);color:#fff;}
+.ce-pill-dainviare{border-color:var(--orange);color:var(--orange);background:var(--orange-l);}
+.ce-pill-dainviare .ce-pill-cnt{background:var(--orange);color:#fff;}
 .ce-pill-dainviare:not(.active){border-color:var(--border);color:var(--muted);background:var(--surface2);}
 .ce-pill-dainviare:not(.active) .ce-pill-cnt{background:var(--border);color:var(--muted);}
-.ce-pill-inviate{border-color:var(--green);color:var(--green);background:var(--green-l);}
-.ce-pill-inviate .ce-pill-cnt{background:var(--green);color:#fff;}
+.ce-pill-inviate{border-color:var(--amm);color:var(--amm);background:var(--amm-l);}
+.ce-pill-inviate .ce-pill-cnt{background:var(--amm);color:#fff;}
 .ce-pill-inviate:not(.active){border-color:var(--border);color:var(--muted);background:var(--surface2);}
 .ce-pill-inviate:not(.active) .ce-pill-cnt{background:var(--border);color:var(--muted);}
+.ce-pill-ricevute{border-color:var(--green);color:var(--green);background:var(--green-l);}
+.ce-pill-ricevute .ce-pill-cnt{background:var(--green);color:#fff;}
+.ce-pill-ricevute:not(.active){border-color:var(--border);color:var(--muted);background:var(--surface2);}
+.ce-pill-ricevute:not(.active) .ce-pill-cnt{background:var(--border);color:var(--muted);}
 .ce-pill-tutti{border-color:var(--muted);color:var(--text);background:var(--surface2);}
 .ce-pill-tutti .ce-pill-cnt{background:var(--muted);color:#fff;}
 .ce-pill-tutti:not(.active){border-color:var(--border);color:var(--muted);background:var(--surface2);}
@@ -95,6 +99,8 @@ main#app-main{padding:1.4rem 1.8rem;}
 .ce-corso-line+.ce-corso-line{border-top:1px dashed var(--border);margin-top:2px;padding-top:5px;}
 .ce-corso-date{font-size:.72rem;color:var(--muted);font-weight:500;white-space:nowrap;}
 .ce-corso-sent-tag{font-size:.62rem;color:#3b6d11;font-weight:600;white-space:nowrap;}
+.ce-mark-btn{border:1px solid var(--border);background:var(--surface);border-radius:6px;font-size:.62rem;line-height:1;padding:2px 5px;cursor:pointer;color:var(--muted);}
+.ce-mark-btn:hover{background:var(--surface2);color:var(--text);}
 .ce-mese{justify-content:center;padding:5px 0;font-size:.76rem;}
 .ce-pill{position:relative;}
 .ce-pill[data-tip]:hover::after{content:attr(data-tip);position:absolute;top:calc(100% + 8px);left:0;background:var(--text);color:#fff;font-size:.68rem;font-weight:500;padding:8px 12px;border-radius:8px;white-space:normal;width:270px;text-align:left;z-index:300;line-height:1.5;box-shadow:var(--shadow);pointer-events:none;}
@@ -212,9 +218,24 @@ tbody tr.clickable:hover{background:var(--accent-l);}
 .pl-card-row{font-size:.7rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;padding:2px 0;}
 .pl-lib-ok{color:#1E6B35;font-weight:700;}
 .pl-lib-warn{color:#B8860B;font-weight:700;}
+.eo-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;cursor:pointer;transition:background .15s;}
+.eo-card:hover{background:var(--surface2);}
+.eo-card-info{display:flex;flex-direction:column;gap:3px;}
+.eo-card-nome{font-weight:700;font-size:.88rem;}
+.eo-card-meta{font-size:.75rem;color:var(--muted);}
+.eo-card-data{font-size:.72rem;color:var(--muted);white-space:nowrap;text-align:right;}
+.eo-section-title{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:1.2rem 0 .5rem;}
+.eo-cert-row{display:flex;align-items:center;gap:10px;font-size:.82rem;padding:7px 0;border-bottom:1px solid var(--surface2);}
+.eo-cert-row:last-child{border-bottom:none;}
+.eo-cert-nome{flex:1;font-weight:600;}
+.eo-cert-date{font-size:.72rem;color:var(--muted);white-space:nowrap;}
+.eo-sess-row{display:flex;align-items:center;gap:10px;font-size:.82rem;padding:7px 0;border-bottom:1px solid var(--surface2);}
+.eo-sess-row:last-child{border-bottom:none;}
+.eo-sess-corso{flex:1;font-weight:600;}
+.eo-sess-date{font-size:.72rem;color:var(--muted);white-space:nowrap;}
 .casc-sess-hdr{cursor:pointer;background:var(--surface2);padding:.45rem .9rem;font-size:.78rem;font-weight:700;}
 .casc-sess-hdr.esaurite{background:#FFF3F0;color:#8B3010;}
-.casc-sess-hdr.concluse{background:var(--surface2);color:var(--muted);}
+.casc-sess-hdr.concluse{background:#FFF3F0;color:#8B3010;}
 .badge-inviata{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:#D4EDDA;color:#1E6B35;border:1px solid #A8D5AB;border-radius:5px;padding:2px 6px;margin-left:6px;}
 .sess-adm-item.inviata{background:#F0FAF1;border-color:#A8D5AB;}
 .badge{display:inline-block;font-size:.71rem;font-weight:700;padding:2px 8px;border-radius:5px;white-space:nowrap;}
@@ -230,10 +251,22 @@ tbody tr.clickable:hover{background:var(--accent-l);}
 .sess-pill{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:.4rem .85rem;border-radius:9px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;transition:all .16s;min-width:88px;}
 .sess-pill:hover{border-color:var(--accent);background:var(--accent-l);}
 .sess-pill.selected{border-color:var(--accent);background:var(--accent);color:#fff;}
-.sess-filter-pill{border-radius:20px;padding:5px 10px;font-size:.75rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:var(--surface);color:var(--muted);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sess-filter-pill{border-radius:12px;padding:5px 8px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid #e3c9a8;background:var(--accent-l);color:var(--text);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:4px;white-space:normal;text-align:center;line-height:1.3;width:144px;min-width:144px;max-width:144px;min-height:52px;flex:0 0 144px;box-sizing:border-box;}
+.sess-filter-pill .pill-cnt{color:var(--accent-d);font-weight:500;}
 .sess-filter-pill.active{background:var(--orange);border-color:var(--orange);color:#fff}
+.sess-filter-pill.active .pill-cnt{background:rgba(255,255,255,.25);color:#fff;}
 .pill-cnt-lbl{background:rgba(0,0,0,.1);border-radius:999px;padding:1px 6px;font-size:.68rem}
-.sess-filter-pill.active .pill-cnt{background:rgba(255,255,255,.25)}
+.sess-pill-searchbar{display:flex;align-items:center;gap:8px;margin-bottom:.6rem;padding:6px 12px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;}
+.sess-pill-searchbar input{border:none;outline:none;background:transparent;font-size:.8rem;flex:1;color:var(--text);font-family:inherit;}
+.sess-pill-searchbar input::placeholder{color:var(--muted);}
+.sess-pills-row{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start;}
+.sess-pill-group{display:flex;flex-direction:column;gap:4px;}
+.sess-pill-variant{font-size:.68rem;padding:3px 9px;opacity:.88;width:auto;min-width:0;max-width:none;min-height:auto;flex:0 1 auto;}
+.sess-pill-chev{font-size:.62rem;margin-left:1px;transition:transform .15s;display:inline-flex;}
+.sess-pill-chev.open{transform:rotate(180deg);}
+.sess-pill-varrow{display:flex;flex-wrap:wrap;gap:5px;padding-left:6px;}
+.sess-pill-more-btn{margin-top:6px;font-size:.75rem;font-weight:600;color:var(--muted);background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;padding:4px 2px;}
+.sess-pill-more-btn:hover{color:var(--accent-d);}
 .riepilogo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;align-items:stretch}
 .riepilogo-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 12px;cursor:pointer;transition:border-color .15s;display:flex;flex-direction:column;justify-content:space-between;min-height:72px;}
 .riepilogo-card:hover{border-color:var(--orange)}
@@ -242,6 +275,14 @@ tbody tr.clickable:hover{background:var(--accent-l);}
 .rc-card-row{display:flex;justify-content:space-between;font-size:.72rem}
 .rc-card-isc{color:var(--muted)}
 .rc-card-lib{color:#1a6b3a;font-weight:600}
+.riepilogo-card.zero-lib .rc-card-lib{color:#a32d2d}
+.riepilogo-card.zero-lib{border-color:#f0c4c4}
+.zero-group-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;padding:.65rem 1rem;background:#fcebeb;border:1px solid #f0c4c4;border-radius:10px;cursor:pointer;margin-bottom:8px;font-size:.78rem;font-weight:700;color:#a32d2d}
+.zero-group-toggle .zg-badge{background:#fff;color:#a32d2d;font-size:.68rem;font-weight:700;padding:1px 8px;border-radius:999px;margin-left:6px}
+.zero-group-toggle .zg-chev{transition:transform .15s}
+.zero-group-toggle.open .zg-chev{transform:rotate(90deg)}
+.zero-group-body{display:none;margin-bottom:12px}
+.zero-group-body.open{display:block}
 flex-shrink:0;display:flex;align-items:center;padding:.4rem .85rem;border-radius:9px;border:1.5px dashed var(--border);background:var(--bg);cursor:pointer;font-size:.74rem;font-weight:700;color:var(--muted);transition:all .16s;}
 .sess-pill-all:hover,.sess-pill-all.selected{border-color:var(--accent);color:var(--accent-d);background:var(--accent-l);}
 .sess-pill-data{font-size:.76rem;font-weight:800;line-height:1.2;}
@@ -446,6 +487,17 @@ flex-shrink:0;display:flex;align-items:center;padding:.4rem .85rem;border-radius
 .cert-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:20px;font-size:.7rem;font-weight:700;background:var(--accent-l);border:.5px solid #f5d9b0;color:var(--accent-d);margin-right:4px;}
 .cert-tag-x{cursor:pointer;opacity:.7;font-size:.65rem;}
 .modal-overlay.open .modal-csv{transform:translateY(0) scale(1);}
+.modal-import-res{background:var(--surface);border:1px solid var(--border);border-radius:18px;width:100%;max-width:760px;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(44,36,22,.13);transform:translateY(18px) scale(.97);transition:transform .24s;padding:1.6rem;}
+.modal-overlay.open .modal-import-res{transform:translateY(0) scale(1);}
+.ir-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.1rem}
+.ir-kpi>div{background:var(--surface2);border-radius:10px;padding:.7rem .6rem;text-align:center}
+.ir-kpi .ir-n{font-size:1.3rem;font-weight:700;color:var(--text)}
+.ir-kpi .ir-l{font-size:.65rem;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.04em}
+.ir-section-title{font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:1rem 0 .4rem}
+.ir-body{overflow-y:auto;flex:1}
+.ir-row{display:grid;grid-template-columns:2fr 1fr 1.4fr 1fr;gap:8px;padding:5px 8px;border-radius:6px;background:var(--surface2);font-size:.74rem;align-items:center;margin-bottom:3px}
+.ir-row.err{background:#fde8e0;color:#7a2b13}
+.ir-empty{font-size:.78rem;color:var(--muted);font-style:italic;padding:.4rem 8px}
 @media(max-width:680px){main{padding:1rem;}header,nav{padding:0 1rem;}.edit-grid{grid-template-columns:1fr 1fr;}.matricola-row{flex-direction:column;}.stat-cards{grid-template-columns:1fr 1fr;}}
 
 .er-schede-switch{display:inline-flex;gap:8px;margin-bottom:1.2rem;}
@@ -478,6 +530,9 @@ flex-shrink:0;display:flex;align-items:center;padding:.4rem .85rem;border-radius
 .er-act-btn.send{color:#185FA5;border-color:#B5D4F4;background:#E6F1FB;}
 .er-act-btn.resend{color:var(--muted);border-color:var(--border);}
 .er-act-btn.warn{color:#7a2b13;border-color:#F0997B;background:#fde8e0;}
+.er-arch-btn{display:inline-flex;align-items:center;gap:3px;font-size:.68rem;font-weight:600;border:1px solid #A8D5AB;background:#E8F5E9;color:#1E6B35;border-radius:14px;padding:2px 8px;margin-top:3px;cursor:pointer;}
+.er-arch-btn:hover{background:#d4edda;}
+.er-arch-btn[disabled]{opacity:.4;cursor:not-allowed;background:var(--surface-2,#f0efec);border-color:var(--border);color:var(--muted);}
 </style>
 </head>
 <body>
@@ -509,7 +564,7 @@ if(new URLSearchParams(window.location.search).get('al')) {
       <button class="btn btn-primary btn-full" onclick="doLogin()">Accedi</button>
     </div>
     <div id="login-err"></div>
-    <div style="margin-top:1.8rem;font-size:.68rem;color:var(--muted)">Gestione Corsi IMAT — v31c1 · 06/06/2026</div>
+    <div style="margin-top:1.8rem;font-size:.68rem;color:var(--muted)">Gestione Corsi IMAT — v2.0.m15 · 05/08/2026</div>
     <div style="margin-top:.4rem;font-size:.62rem;color:var(--muted);opacity:.7">© 2025 S.M.A.R.T Solutions</div>
   </div>
 </div>
@@ -535,16 +590,22 @@ if(new URLSearchParams(window.location.search).get('al')) {
 <!-- SIDEBAR -->
 <div id="app-sidebar" style="display:none">
   <div class="sb-logo">🎓 <span>IMAT</span> Corsi</div>
-  <div class="sb-section">Principale</div>
+  <div class="sb-section">Operativo</div>
   <button class="sb-item active" onclick="showPage('sessioni',this)"><span class="sb-icon">📅</span> Sessioni</button>
   <button class="sb-item" onclick="showPage('riepilogo',this)"><span class="sb-icon">📋</span> Riepilogo</button>
+  <div class="sb-section">Consultazione</div>
+  <button class="sb-item" onclick="showPage('scadenze12',this)"><span class="sb-icon">⏳</span> Scadenze 12 mesi</button>
   <button class="sb-item" onclick="showPage('certificati',this)"><span class="sb-icon">🏅</span> Certificati</button>
-  <button class="sb-item" onclick="showPage('statistiche',this)"><span class="sb-icon">📊</span> Statistiche</button>
   <button class="sb-item" onclick="showPage('corsi-effettuati',this)"><span class="sb-icon">📝</span> Corsi Effettuati</button>
-  <div class="sb-section">Email</div>
+  <button class="sb-item" onclick="showPage('note-personale',this)"><span class="sb-icon">🗒️</span> Note Personale</button>
+  <div class="sb-section">Analisi</div>
+  <button class="sb-item" onclick="showPage('statistiche',this)"><span class="sb-icon">📊</span> Statistiche</button>
   <button class="sb-item" onclick="showPage('email-riepilogo',this)"><span class="sb-icon">📬</span> Riepilogo Email</button>
+  <div class="sb-section">Archivio</div>
+  <button class="sb-item" onclick="showPage('ex-organico',this)"><span class="sb-icon">👥</span> Ex Organico</button>
+  <button class="sb-item" onclick="showPage('ex-organico-sessioni',this)"><span class="sb-icon">🗄️</span> Ex Organico Sessioni</button>
+  <div class="sb-section">Admin</div>
   <button class="sb-item admin-only" style="display:none" onclick="showPage('config-email',this)"><span class="sb-icon">⚙️</span> Config Email</button>
-  <div class="sb-section">Gestione</div>
   <button class="sb-item admin-only" style="display:none" onclick="showPage('admin',this)"><span class="sb-icon">🔧</span> Admin</button>
   <div class="sb-bottom">
     <span class="sb-icon">👤</span>
@@ -562,7 +623,7 @@ if(new URLSearchParams(window.location.search).get('al')) {
       <div><div class="page-title">Sessioni IMAT</div><div class="page-sub">Tocca una sessione per iscrivere un marittimo</div></div>
       <button class="btn btn-primary" onclick="loadSessioni()">↻ Aggiorna</button>
     </div>
-    <div id="sess-pills" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;margin-bottom:1rem"></div>
+    <div id="sess-pills" style="margin-bottom:1rem"></div>
     <div class="pl-cards-wrap" id="pl-cards-wrap" style="display:none">
       <div class="pl-cards-label">🟢 Corsi con posti liberi</div>
       <div class="pl-cards-grid" id="pl-cards-grid"></div>
@@ -605,15 +666,37 @@ if(new URLSearchParams(window.location.search).get('al')) {
     </div>
   </div>
 
-  <div class="page" id="page-certificati">
+  <!-- NUOVA PAGINA SCADENZE 12 MESI -->
+  <div class="page" id="page-scadenze12">
     <div class="page-hdr">
-      <div><div class="page-title">Certificati Marittimi</div><div class="page-sub">Situazione certificati e scadenze</div></div>
-      <button class="btn btn-primary" onclick="loadCertificati()" style="display:flex;align-items:center;gap:6px">&#8635; Aggiorna</button>
+      <div><div class="page-title">⏳ Scadenze 12 mesi</div><div class="page-sub">Scadenze certificati per corso nei prossimi 12 mesi (solo italiani)</div></div>
+      <button class="btn btn-primary" onclick="loadScadenze12()" style="display:flex;align-items:center;gap:6px">&#8635; Aggiorna</button>
     </div>
-    <!-- TABELLA SCADENZE TOP -->
+    <div class="stat-table-wrap" id="scad12-filtri-wrap" style="margin-bottom:12px;padding:14px 16px;">
+      <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;">
+        <div>
+          <div style="font-size:.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;">Reparto</div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;" id="scad12-cb-reparto">
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.78rem;"><input type="checkbox" value="Coperta" onchange="toggleScad12Filtro('reparto','Coperta',this.checked)" style="accent-color:var(--accent);width:14px;height:14px;">Coperta</label>
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.78rem;"><input type="checkbox" value="Macchina" onchange="toggleScad12Filtro('reparto','Macchina',this.checked)" style="accent-color:var(--accent);width:14px;height:14px;">Macchina</label>
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.78rem;"><input type="checkbox" value="Camera" onchange="toggleScad12Filtro('reparto','Camera',this.checked)" style="accent-color:var(--accent);width:14px;height:14px;">Camera</label>
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.78rem;"><input type="checkbox" value="Cucina" onchange="toggleScad12Filtro('reparto','Cucina',this.checked)" style="accent-color:var(--accent);width:14px;height:14px;">Cucina</label>
+          </div>
+        </div>
+        <div style="width:1px;background:var(--border);align-self:stretch;"></div>
+        <div>
+          <div style="font-size:.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;">Compagnia</div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;" id="scad12-cb-compagnia">
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.78rem;"><input type="checkbox" value="Moby" onchange="toggleScad12Filtro('compagnia','Moby',this.checked)" style="accent-color:var(--accent);width:14px;height:14px;">Moby</label>
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.78rem;"><input type="checkbox" value="Cin" onchange="toggleScad12Filtro('compagnia','Cin',this.checked)" style="accent-color:var(--accent);width:14px;height:14px;">Cin</label>
+          </div>
+        </div>
+        <button onclick="resetScad12Filtri()" style="margin-left:auto;align-self:center;background:none;border:none;color:var(--muted);font-size:.7rem;cursor:pointer;text-decoration:underline;">reset filtri</button>
+      </div>
+    </div>
     <div class="stat-table-wrap" id="cert-scad-wrap" style="margin-bottom:1.2rem">
       <div class="stat-table-hdr" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
-        <span>⏳ Scadenze prossimi 12 mesi per corso <span style="font-size:.72rem;font-weight:400;color:var(--muted)">(solo italiani)</span></span>
+        <span>Scadenze prossimi 12 mesi per corso</span>
         <span style="display:flex;gap:12px;font-size:.68rem;font-weight:400;color:var(--muted);align-items:center;">
           <span style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent)"></span>in scadenza</span>
           <span style="display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green)"></span>coperti (iscritti a sessione)</span>
@@ -623,17 +706,31 @@ if(new URLSearchParams(window.location.search).get('al')) {
     </div>
     <!-- Modal scadenze certificati -->
     <div id="cert-scad-overlay" style="display:none;position:fixed;inset:0;background:rgba(44,36,22,.45);z-index:600;align-items:center;justify-content:center;" onclick="if(event.target===this)chiudiCertScad()">
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;width:820px;max-height:520px;display:flex;flex-direction:column;gap:10px;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.4rem;width:1100px;max-width:96vw;max-height:85vh;display:flex;flex-direction:column;gap:10px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
           <div style="font-size:.82rem;font-weight:700;" id="cert-scad-title">—</div>
           <button onclick="chiudiCertScad()" style="background:none;border:none;cursor:pointer;font-size:1rem;color:var(--muted)">✕</button>
         </div>
-        <div style="display:grid;grid-template-columns:2fr 1fr 1.2fr 1fr 1fr 1.2fr 1fr;gap:8px;padding:4px 8px;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);">
-          <span>Nome</span><span>Matricola</span><span>Qualifica</span><span>Scadenza</span><span>Prenotazione</span><span>Attuale</span><span>Sbarco</span>
-        </div>
         <div id="cert-scad-list" style="overflow-y:auto;display:flex;flex-direction:column;gap:3px;"></div>
         <button onclick="stampaCertScadPDF()" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px;border-radius:8px;background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;cursor:pointer;border:none;width:100%">🖨 Stampa PDF</button>
       </div>
+    </div>
+  <div id="pill-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(44,36,22,.55);z-index:700;align-items:center;justify-content:center;" onclick="if(event.target===this)chiudiPillModal()">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.4rem;width:1100px;max-width:96vw;max-height:85vh;display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:.85rem;font-weight:700;" id="pill-modal-title">—</div>
+        <button onclick="chiudiPillModal()" style="background:none;border:none;cursor:pointer;font-size:1rem;color:var(--muted)">✕</button>
+      </div>
+      <div id="pill-modal-body" style="overflow-y:auto;display:flex;flex-direction:column;gap:3px;flex:1;"></div>
+      <button onclick="stampaPillPDF()" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px;border-radius:8px;background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;cursor:pointer;border:none;width:100%">🖨 Stampa PDF</button>
+    </div>
+  </div>
+  </div>
+
+  <div class="page" id="page-certificati">
+    <div class="page-hdr">
+      <div><div class="page-title">Certificati Marittimi</div><div class="page-sub">Situazione certificati e scadenze</div></div>
+      <button class="btn btn-primary" onclick="loadCertificati()" style="display:flex;align-items:center;gap:6px">&#8635; Aggiorna</button>
     </div>
     <!-- SEPARATORE -->
     <div style="display:flex;align-items:center;gap:8px;margin:1rem 0 .8rem;">
@@ -743,7 +840,8 @@ if(new URLSearchParams(window.location.search).get('al')) {
     <!-- Sub-pill stato sollecito (solo tab Associati) -->
     <div id="ce-subpills" style="display:flex;align-items:center;gap:8px;margin:-0.4rem 0 1.2rem;flex-wrap:wrap;">
       <button id="ce-subpill-dainviare" class="ce-pill ce-pill-dainviare ce-pill-sm active" onclick="setCeSubTab('dainviare')">📩 Da inviare <span id="ce-cnt-dainviare" class="ce-pill-cnt">0</span></button>
-      <button id="ce-subpill-inviate" class="ce-pill ce-pill-inviate ce-pill-sm" onclick="setCeSubTab('inviate')">✅ Inviate <span id="ce-cnt-inviate" class="ce-pill-cnt">0</span></button>
+      <button id="ce-subpill-inviate" class="ce-pill ce-pill-inviate ce-pill-sm" onclick="setCeSubTab('inviate')">✉️ Inviate <span id="ce-cnt-inviate" class="ce-pill-cnt">0</span></button>
+      <button id="ce-subpill-ricevute" class="ce-pill ce-pill-ricevute ce-pill-sm" onclick="setCeSubTab('ricevute')">✅ Ricevute <span id="ce-cnt-ricevute" class="ce-pill-cnt">0</span></button>
       <button id="ce-subpill-tutti" class="ce-pill ce-pill-tutti ce-pill-sm" onclick="setCeSubTab('tutti')">📋 Tutti <span id="ce-cnt-tutti" class="ce-pill-cnt">0</span></button>
     </div>
 
@@ -843,6 +941,42 @@ if(new URLSearchParams(window.location.search).get('al')) {
     </div>
   </div>
   <!-- ===== FINE CORSI EFFETTUATI ===== -->
+
+  <div class="page" id="page-note-personale">
+    <div class="page-hdr">
+      <div>
+        <div class="page-title">🗒️ Note Personale</div>
+        <div class="page-sub">Note generali per persona — escludono dal conteggio "scadenze reali"</div>
+      </div>
+    </div>
+    <div class="f-row" style="margin-bottom:1rem;position:relative;max-width:480px">
+      <div class="search-tooltip-wrap" style="width:100%">
+        <input class="f-inp" id="np-search" type="text" placeholder="🔍 Cerca nome o matricola…" oninput="onNpSearch(this.value)" onkeydown="if(event.key==='Escape')chiudiAcNp()" style="width:100%" autocomplete="off">
+        <div id="ac-np" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid var(--border);border-radius:0 0 10px 10px;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,.1);max-height:220px;overflow-y:auto"></div>
+      </div>
+    </div>
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Note attive</div>
+    <div id="np-list"><div class="empty"><span class="spinner"></span></div></div>
+  </div>
+
+  <div id="np-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center">
+    <div style="background:var(--surface);border-radius:14px;width:480px;max-width:92vw;padding:1.5rem;box-shadow:0 8px 30px rgba(0,0,0,.25)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem">
+        <div>
+          <div id="np-modal-nome" style="font-size:1.05rem;font-weight:700;color:var(--text)">—</div>
+          <div id="np-modal-sub" style="font-size:.78rem;color:var(--muted);margin-top:2px">—</div>
+        </div>
+        <button onclick="chiudiNpModal()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+      <label style="font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Nota</label>
+      <textarea id="np-modal-nota" rows="4" placeholder="Es. non frequenterà il corso presso il centro autorizzato…" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:.85rem;font-family:inherit;resize:vertical"></textarea>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:1.2rem">
+        <button class="btn btn-danger" id="np-modal-del" style="display:none" onclick="eliminaNotaPersonale()">🗑 Elimina nota</button>
+        <button class="btn btn-ghost" onclick="chiudiNpModal()">Annulla</button>
+        <button class="btn btn-primary" onclick="salvaNotaPersonale()">💾 Salva</button>
+      </div>
+    </div>
+  </div>
 
   <div class="page" id="page-email-riepilogo">
     <div class="page-hdr">
@@ -977,6 +1111,7 @@ if(new URLSearchParams(window.location.search).get('al')) {
       <button class="btn btn-ghost btn-lg" onclick="showAdmPanel('pin',event)">🔑 PIN</button>
       <button class="btn btn-ghost btn-lg" onclick="showAdmPanel('import',event)">⬆ Importa CSV</button>
       <button class="btn btn-ghost btn-lg" onclick="showAdmPanel('mapping',event)">🔗 Associazioni Nomi</button>
+      <button class="btn btn-ghost btn-lg" onclick="showAdmPanel('config',event)">⚙️ Configurazione</button>
     </div>
 
     <div class="adm-panel active" id="adm-panel-sessioni">
@@ -1061,6 +1196,25 @@ if(new URLSearchParams(window.location.search).get('al')) {
         <!-- Lista associazioni -->
         <div id="adm-mapping-list">
           <div style="color:var(--muted);font-size:.82rem;padding:.5rem 0">Caricamento…</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-panel" id="adm-panel-config">
+      <div class="adm-card">
+        <div class="adm-card-title">⚙️ Configurazione</div>
+        <div class="divider"></div>
+        <div style="margin-top:1rem">
+          <div class="adm-card-title" style="font-size:.88rem;margin-bottom:.4rem">📅 Anno Certificati Validi</div>
+          <p style="font-size:.82rem;color:var(--muted);margin-bottom:.9rem">
+            Anno di riferimento usato nella pagina <strong>Corsi Effettuati</strong> per decidere se un certificato è già stato rinnovato e quindi <strong>non va sollecitato</strong>.<br>
+            Un certificato è considerato valido se la sua <em>data di scadenza</em> cade nell'anno qui indicato.
+          </p>
+          <div style="display:flex;align-items:center;gap:12px">
+            <input class="form-input" type="number" id="cfg-anno-rif" placeholder="es. 2031" min="2020" max="2099" style="width:140px;font-family:'DM Mono',monospace;font-size:1rem;font-weight:700">
+            <button class="btn btn-primary" onclick="admSalvaAnnoRif()">💾 Salva</button>
+            <span id="cfg-anno-status" style="font-size:.8rem;color:var(--muted)"></span>
+          </div>
         </div>
       </div>
     </div>
@@ -1279,6 +1433,34 @@ if(new URLSearchParams(window.location.search).get('al')) {
 
   </div>
 
+  <div class="page" id="page-ex-organico">
+    <div class="page-hdr">
+      <div><div class="page-title">👥 Ex Organico</div><div class="page-sub">Marittimi non più in organico — storico senza sessione collegata</div></div>
+      <button class="btn btn-primary" onclick="loadExOrganico()">↻ Aggiorna</button>
+    </div>
+    <div id="eo-list" style="display:flex;flex-direction:column;gap:10px;margin-top:1rem">
+      <div style="text-align:center;padding:2rem;color:var(--muted);font-size:.85rem">Clicca Aggiorna per caricare i dati</div>
+    </div>
+    <div id="eo-detail" style="display:none;margin-top:1.5rem">
+      <button class="btn btn-ghost" style="margin-bottom:1rem;font-size:.8rem" onclick="chiudiEoDetail()">← Torna alla lista</button>
+      <div id="eo-detail-content"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-ex-organico-sessioni">
+    <div class="page-hdr">
+      <div><div class="page-title">🗄️ Ex Organico Sessioni</div><div class="page-sub">Marittimi che hanno perso un corso specifico con sessione collegata (passata/futura)</div></div>
+      <button class="btn btn-primary" onclick="loadExOrganicoSessioni()">↻ Aggiorna</button>
+    </div>
+    <div id="eos-list" style="display:flex;flex-direction:column;gap:10px;margin-top:1rem">
+      <div style="text-align:center;padding:2rem;color:var(--muted);font-size:.85rem">Clicca Aggiorna per caricare i dati</div>
+    </div>
+    <div id="eos-detail" style="display:none;margin-top:1.5rem">
+      <button class="btn btn-ghost" style="margin-bottom:1rem;font-size:.8rem" onclick="chiudiEosDetail()">← Torna alla lista</button>
+      <div id="eos-detail-content"></div>
+    </div>
+  </div>
+
 </main>
 
 <div class="modal-overlay" id="modal-overlay">
@@ -1373,19 +1555,19 @@ if(new URLSearchParams(window.location.search).get('al')) {
   </div>
 </div>
 
-<div class="modal-overlay" id="modal-csv-overlay">
-  <div class="modal-csv">
-    <div style="font-size:.95rem;font-weight:800;margin-bottom:.5rem">⬆ Importa Certificati CSV</div>
-    <div style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">
-      Colonne richieste:<br>
-      <code style="font-family:'DM Mono',monospace;font-size:.75rem;background:var(--bg);padding:2px 6px;border-radius:4px">matricola_aziendale, nome_corso, data_rilascio, data_scadenza</code><br>
-      Date nel formato <code style="font-family:'DM Mono',monospace;font-size:.75rem;background:var(--bg);padding:2px 6px;border-radius:4px">YYYY-MM-DD</code>
+
+
+<div class="modal-overlay" id="modal-import-res-overlay">
+  <div class="modal-import-res">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.3rem">
+      <div style="font-size:.95rem;font-weight:800">📋 Riepilogo Importazione</div>
+      <button onclick="chiudiImportRes()" style="background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--muted)">✕</button>
     </div>
-    <input type="file" id="csv-file" accept=".csv" style="width:100%;margin-bottom:1rem">
-    <div id="csv-preview" style="font-size:.78rem;color:var(--muted);margin-bottom:1rem"></div>
-    <div style="display:flex;gap:10px;justify-content:flex-end">
-      <button class="btn btn-ghost" onclick="chiudiCsv()">Annulla</button>
-      <button class="btn btn-primary" id="btn-importa-csv" onclick="importaCsv()" disabled>⬆ Importa</button>
+    <div id="ir-kpi" class="ir-kpi"></div>
+    <div class="ir-body" id="ir-body"></div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:1rem">
+      <button class="btn" onclick="esportaImpRiepilogoPDF()">📄 Esporta PDF</button>
+      <button class="btn btn-primary" onclick="chiudiImportRes()">Chiudi</button>
     </div>
   </div>
 </div>
@@ -1649,6 +1831,79 @@ async function impAvvia(){
     document.getElementById('imp-prog-count').textContent=`${ok+err} / ${totale}`;
   }
   impLog(`▶ Avvio — ${totale.toLocaleString('it-IT')} record in batch da ${BATCH}`,'head');
+
+  // === EX ORGANICO: step preliminare — per ogni nome_corso presente nel file, trovo chi scompare ===
+  const corsiNelFile=[...new Set(_impRecordElaborati.map(r=>r.nome_corso).filter(Boolean))];
+  const matsNelFilePerCorso={};
+  corsiNelFile.forEach(c=>{ matsNelFilePerCorso[c]=new Set(_impRecordElaborati.filter(r=>r.nome_corso===c).map(r=>r.matricola_aziendale)); });
+  let daRimuovere=[]; // {matricola, corso}
+  let exOrganicoCreati=[]; // {matricola, corso, nome, dataSessione}
+  let exOrganicoRientrati=[]; // {matricola, corso, nome}
+  let cancellatiSenzaStorico=[]; // {matricola, corso, nome}
+  try{
+    impLog('Verifico variazioni rispetto ai certificati esistenti…','info');
+    // mappa nomi sessione associati per ciascun corso (Admin → Associazioni Nomi), con fallback
+    const nomiMapping=await sbGetAll('corsi_nome_mapping','order=nome_csv,nome_sessione').catch(()=>[]);
+    function nomiSessioneAssociati(corso){
+      const m=nomiMapping.filter(x=>(x.nome_csv||'').toLowerCase()===corso.toLowerCase()).map(x=>x.nome_sessione);
+      return m.length?m:['Refresh '+corso];
+    }
+    const sessioniTutte=await sbGet('corsi_sessioni','select=id,nota,data_inizio').catch(()=>[]);
+    function sessIdsPerCorso(corso){
+      const nomi=nomiSessioneAssociati(corso);
+      return sessioniTutte.filter(s=>nomi.indexOf(s.nota||'')>=0).map(s=>s.id);
+    }
+    for(const corso of corsiNelFile){
+      const existing=await sbGet('corsi_certificati',`nome_corso=eq.${encodeURIComponent(corso)}&select=matricola_aziendale,cognome_nome`).catch(()=>[]);
+      const scomparsi=existing.filter(e=>!matsNelFilePerCorso[corso].has(e.matricola_aziendale));
+      if(!scomparsi.length)continue;
+      const sessIds=sessIdsPerCorso(corso);
+      for(const rec of scomparsi){
+        const mat=rec.matricola_aziendale;
+        // ha una sessione (passata o futura) per QUESTO corso?
+        const iscr=await sbGet('corsi_iscritti',`matricola_aziendale=eq.${encodeURIComponent(mat)}&select=sessione_id`).catch(()=>[]);
+        const sessioneMatch=iscr.find(i=>sessIds.indexOf(i.sessione_id)>=0);
+        daRimuovere.push({matricola:mat,corso});
+        if(sessioneMatch){
+          const sessInfo=sessioniTutte.find(s=>s.id===sessioneMatch.sessione_id);
+          exOrganicoCreati.push({matricola:mat,corso,nome:rec.cognome_nome||mat,dataSessione:sessInfo?sessInfo.data_inizio:null});
+        }else{
+          cancellatiSenzaStorico.push({matricola:mat,corso,nome:rec.cognome_nome||mat});
+        }
+      }
+    }
+    impLog(`✓ ${daRimuovere.length} certificati da rimuovere (${exOrganicoCreati.length} → Ex Organico, ${cancellatiSenzaStorico.length} senza sessione collegata)`,daRimuovere.length?'warn':'ok');
+  }catch(e){impLog(`⚠ Verifica Ex Organico: ${e.message}`,'warn');}
+
+  // Applica le cancellazioni e gli inserimenti/aggiornamenti in Ex Organico
+  for(const {matricola,corso} of daRimuovere){
+    try{
+      await fetch(`${SB_URL}/rest/v1/corsi_certificati?matricola_aziendale=eq.${encodeURIComponent(matricola)}&nome_corso=eq.${encodeURIComponent(corso)}`,{method:'DELETE',headers:HDR});
+    }catch(e){}
+  }
+  for(const ex of exOrganicoCreati){
+    try{
+      await fetch(`${SB_URL}/rest/v1/corsi_ex_organico?on_conflict=matricola,corso`,{method:'POST',headers:{...HDR,'Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify({matricola:ex.matricola,corso:ex.corso,cognome_nome:ex.nome,data_sessione:ex.dataSessione,data_uscita:new Date().toISOString()})});
+    }catch(e){}
+  }
+  if(exOrganicoCreati.length)impLog(`✓ ${exOrganicoCreati.length} righe inserite/aggiornate in Ex Organico`,'ok');
+
+  // === EX ORGANICO: rientro mirato — se una matricola+corso del file era in Ex Organico, la rimuovo SOLO per quel corso ===
+  try{
+    for(const corso of corsiNelFile){
+      const matsCorso=[...matsNelFilePerCorso[corso]];
+      for(let i=0;i<matsCorso.length;i+=200){
+        const batch=matsCorso.slice(i,i+200);
+        const inEx=await sbGet('corsi_ex_organico',`corso=eq.${encodeURIComponent(corso)}&matricola=in.(${batch.map(m=>encodeURIComponent(m)).join(',')})`).catch(()=>[]);
+        for(const rec of inEx){
+          await fetch(`${SB_URL}/rest/v1/corsi_ex_organico?matricola=eq.${encodeURIComponent(rec.matricola)}&corso=eq.${encodeURIComponent(corso)}`,{method:'DELETE',headers:HDR}).catch(()=>{});
+          exOrganicoRientrati.push({matricola:rec.matricola,corso,nome:rec.cognome_nome||rec.matricola});
+        }
+      }
+    }
+    if(exOrganicoRientrati.length)impLog(`✓ ${exOrganicoRientrati.length} rientrati da Ex Organico (corso ripreso)`,'ok');
+  }catch(e){impLog(`⚠ Rientro Ex Organico: ${e.message}`,'warn');}
+
   // carica nominativi
   let dipMap={};
   try{
@@ -1665,19 +1920,20 @@ async function impAvvia(){
   const anagrMap={};
   _impRigheCSV.forEach(row=>{
     if(!anagrMap[row.matricola_aziendale])
-      anagrMap[row.matricola_aziendale]={Matricola_Aziendale:row.matricola_aziendale,Qualifica:row.qualifica||null,Reparto:row.reparto||null,Stato:row['Stato']||row.stato||null,Compagnia:row['Compagnia']||row.compagnia||null};
+      anagrMap[row.matricola_aziendale]={Matricola_Aziendale:row.matricola_aziendale,Qualifica:row.qualifica||null,reparto:row.reparto||null,stato:row['Stato']||row.stato||null,compagnia:row['Compagnia']||row.compagnia||null};
   });
   const anagrRecs=Object.values(anagrMap);
-  let anagrOk=0;
+  let anagrOk=0,anagrErr=0;
   for(let i=0;i<anagrRecs.length;i+=200){
     const batch=anagrRecs.slice(i,i+200);
     try{
       const r=await fetch(`${SB_URL}/rest/v1/Dipendenti?on_conflict=Matricola_Aziendale`,{method:'POST',headers:{...HDR,'Prefer':'resolution=merge-duplicates'},body:JSON.stringify(batch)});
       if(r.ok)anagrOk+=batch.length;
-    }catch(e){}
+      else{anagrErr+=batch.length;const t=await r.text();impLog(`✗ Anagrafica batch: ${t.slice(0,120)}`,'err');}
+    }catch(e){anagrErr+=batch.length;}
     await new Promise(res=>setTimeout(res,50));
   }
-  impLog(`✓ Anagrafica aggiornata: ${anagrOk}/${anagrRecs.length}`,'ok');
+  impLog(`✓ Anagrafica aggiornata: ${anagrOk}/${anagrRecs.length}${anagrErr?' ('+anagrErr+' falliti)':''}`,anagrErr?'warn':'ok');
   // importa certificati
   document.getElementById('imp-prog-label').textContent='Importazione certificati…';
   for(let i=0;i<totale;i+=BATCH){
@@ -1707,11 +1963,16 @@ async function impAvvia(){
   impLog(`COMPLETATO — ${ok} inseriti/aggiornati, ${err} errori`,err===0?'ok':'warn');
   // Salva log importazione
   try{
-    const corsiImportati=[...new Set(_impRecordElaborati.map(r=>r.nome_corso).filter(Boolean))];
-    await fetch(`${SB_URL}/rest/v1/corsi_import_log`,{method:'POST',headers:{...HDR},body:JSON.stringify({utente:currentUser||'',n_record:ok,corsi:corsiImportati})});
+    await fetch(`${SB_URL}/rest/v1/corsi_import_log`,{method:'POST',headers:{...HDR},body:JSON.stringify({utente:currentUser||'',n_record:ok,corsi:corsiNelFile})});
   }catch(e){}
-  if(err===0){toast('✅ Importazione completata!');await loadCertificati();}
+  if(err===0){toast('✅ Importazione completata!');}
   else toast(`⚠️ ${err} errori — controlla il log`,'error');
+  await loadCertificati().catch(()=>{});
+  apriImpRiepilogo({
+    ok,err,
+    daRimuovere,exOrganicoCreati,cancellatiSenzaStorico,exOrganicoRientrati,
+    corsiNelFile
+  });
 }
 
 function setConnDot(s){const d=document.getElementById('conn-dot');d.className='conn-dot'+(s==='on'?'':s==='off'?' off':' loading');}
@@ -1760,12 +2021,16 @@ async function showPage(id,tab){
   document.getElementById('page-'+id).classList.add('active');tab.classList.add('active');
   if(id==='sessioni')await loadSessioni();
   if(id==='riepilogo')await loadRiepilogo();
+  if(id==='scadenze12')await loadScadenze12();
   if(id==='certificati')await loadCertificati();
   if(id==='statistiche')await loadStatistiche();
-  if(id==='corsi-effettuati')await loadCorsiEffettuati();
+  if(id==='corsi-effettuati'){await loadAnnoRif();await loadCorsiEffettuati();}
+  if(id==='note-personale')await loadNotePersonale();
   if(id==='email-riepilogo')await loadEmailRiepilogo();
   if(id==='config-email')loadCfgEmail();
   if(id==='admin')await loadAdmin();
+  if(id==='ex-organico')await loadExOrganico();
+  if(id==='ex-organico-sessioni')await loadExOrganicoSessioni();
 }
 function showAdmPanel(id,evt){
   document.querySelectorAll('.adm-panel').forEach(p=>p.classList.remove('active'));
@@ -1773,6 +2038,21 @@ function showAdmPanel(id,evt){
   document.querySelectorAll('.adm-nav-btns .btn').forEach(b=>{b.classList.remove('btn-primary');b.classList.add('btn-ghost');});
   evt.currentTarget.classList.remove('btn-ghost');evt.currentTarget.classList.add('btn-primary');
   if(id==='mapping')loadMapping();
+  if(id==='config')admCaricaConfig();
+}
+
+async function admCaricaConfig() {
+  await loadAnnoRif();
+  const inp = document.getElementById('cfg-anno-rif');
+  const sta = document.getElementById('cfg-anno-status');
+  if (inp) inp.value = _annoRif || '';
+  if (sta) sta.textContent = _annoRif ? `Attuale: ${_annoRif}` : 'Non configurato';
+}
+async function admSalvaAnnoRif() {
+  const val = document.getElementById('cfg-anno-rif').value.trim();
+  if (!val || isNaN(val) || val.length !== 4) { toast('Inserisci un anno valido (es. 2031)', 'error'); return; }
+  await saveAnnoRif(val);
+  document.getElementById('cfg-anno-status').textContent = `Attuale: ${val}`;
 }
 
 let _tt;
@@ -1788,18 +2068,89 @@ async function loadSessioni(){
 }
 let _filtroSessione=null;
 let _plFiltro=null;
+let _sessPillSearch='';
+let _pillsMostraAltri=false;
+let _pillsVarOpen={};
+const SESS_PILL_NMAIN=0;
+function sessPillEscAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function sessPillArrEq(a,b){return !!a&&!!b&&a.length===b.length&&a.every(x=>b.includes(x));}
+function sessPillParseNome(n){
+  const m=n.split(/\s+—\s+/);
+  if(m.length===2)return{base:m[0],variant:m[1]};
+  return{base:n,variant:null};
+}
 function renderPillsFiltro(){
   const cont=document.getElementById('sess-pills');if(!cont)return;
-  const nomi=[...new Set(_sessioni.map(s=>s.nota||s.corsi_tipologie?.nome||'—'))].sort((a,b)=>a.localeCompare(b,'it',{sensitivity:'base'}));
+  const prevInput=document.getElementById('sess-pill-search-input');
+  const hadFocus=!!(prevInput&&document.activeElement===prevInput);
+  const selStart=hadFocus?prevInput.selectionStart:null;
+  const selEnd=hadFocus?prevInput.selectionEnd:null;
+  const nomi=[...new Set(_sessioni.map(s=>s.nota||s.corsi_tipologie?.nome||'—'))];
   const totale=_sessioni.length;
-  let html=`<div class="sess-filter-pill${!_filtroSessione&&!_plFiltro?' active':''}" onclick="filtraSessione(null);_plFiltro=null;renderPlPanel();">Tutte <span class="pill-cnt">${totale}</span></div>`;
-  html+=nomi.map(n=>{
+
+  const groupsMap={};
+  nomi.forEach(n=>{
     const cnt=_sessioni.filter(s=>(s.nota||s.corsi_tipologie?.nome||'—')===n).length;
-    return`<div class="sess-filter-pill${_filtroSessione===n?' active':''}" data-corso="${n.replace(/"/g,'&quot;')}" onclick="filtraSessione('${n.replace(/'/g,"\\'")}')"> ${n} <span class="pill-cnt">${cnt}</span></div>`;
-  }).join('');
+    const{base,variant}=sessPillParseNome(n);
+    const key=base.trim().toLowerCase();
+    if(!groupsMap[key])groupsMap[key]={base,tot:0,varianti:[],nomiOriginali:[],baseCntMax:-1};
+    groupsMap[key].tot+=cnt;
+    groupsMap[key].nomiOriginali.push(n);
+    if(variant)groupsMap[key].varianti.push({variant,count:cnt,nome:n});
+    else if(cnt>groupsMap[key].baseCntMax){groupsMap[key].base=base;groupsMap[key].baseCntMax=cnt;}
+  });
+  let groups=Object.values(groupsMap);
+  groups.forEach(g=>g.varianti.sort((a,b)=>b.count-a.count));
+  groups.sort((a,b)=>b.tot-a.tot||a.base.localeCompare(b.base,'it',{sensitivity:'base'}));
+
+  const q=_sessPillSearch.trim().toLowerCase();
+  const searching=q.length>0;
+  const matched=searching?groups.filter(g=>g.base.toLowerCase().includes(q)||g.varianti.some(v=>v.variant.toLowerCase().includes(q))):groups;
+  const visibili=searching?matched:matched.slice(0,SESS_PILL_NMAIN);
+  const altri=searching?[]:matched.slice(SESS_PILL_NMAIN);
+  const extra=_pillsMostraAltri?altri:[];
+
+  function groupPillHtml(g,idx){
+    const isGroupActive=sessPillArrEq(_filtroSessione,g.nomiOriginali);
+    const hasVar=g.varianti.length>0;
+    const chev=hasVar?`<i class="sess-pill-chev${_pillsVarOpen[idx]?' open':''}" onclick="event.stopPropagation();toggleSessPillVar(${idx})">▾</i>`:'';
+    const main=`<div class="sess-filter-pill${isGroupActive?' active':''}" data-corso="${sessPillEscAttr(g.base)}" onclick='filtraGruppo(${sessPillEscAttr(JSON.stringify(g.nomiOriginali))})'><span>${g.base}</span><span class="pill-cnt">${g.tot}</span>${chev}</div>`;
+    const varRow=hasVar?`<div class="sess-pill-varrow" id="sess-pill-varrow-${idx}" style="display:${_pillsVarOpen[idx]?'flex':'none'}">${g.varianti.map(v=>{
+      const isVarActive=sessPillArrEq(_filtroSessione,[v.nome]);
+      return`<div class="sess-filter-pill sess-pill-variant${isVarActive?' active':''}" data-corso="${sessPillEscAttr(v.nome)}" onclick='filtraGruppo(${sessPillEscAttr(JSON.stringify([v.nome]))})'>${v.variant} <span class="pill-cnt">${v.count}</span></div>`;
+    }).join('')}</div>`:'';
+    return`<div class="sess-pill-group">${main}${varRow}</div>`;
+  }
+
+  let html=`<div class="sess-pill-searchbar"><span style="font-size:.8rem;color:var(--muted)">🔍</span><input type="text" id="sess-pill-search-input" placeholder="Cerca corso..." value="${sessPillEscAttr(_sessPillSearch)}" oninput="sessPillSearch(this.value)"></div>`;
+  html+=`<div class="sess-pills-row">`;
+  html+=`<div class="sess-filter-pill${!_filtroSessione&&!_plFiltro?' active':''}" onclick="filtraGruppo(null);_plFiltro=null;renderPlPanel();">Tutte <span class="pill-cnt">${totale}</span></div>`;
+  html+=visibili.map((g)=>groupPillHtml(g,groups.indexOf(g))).join('');
+  html+=extra.map((g)=>groupPillHtml(g,groups.indexOf(g))).join('');
+  html+=`</div>`;
+  if(!searching&&altri.length){
+    html+=`<button class="sess-pill-more-btn" onclick="_pillsMostraAltri=!_pillsMostraAltri;renderPillsFiltro();">${_pillsMostraAltri?'Mostra meno':'Mostra altri '+altri.length+' corsi'} <span>${_pillsMostraAltri?'▲':'▼'}</span></button>`;
+  }
   cont.innerHTML=html;
+  if(hadFocus){
+    const newInput=document.getElementById('sess-pill-search-input');
+    if(newInput){
+      newInput.focus();
+      try{newInput.setSelectionRange(selStart,selEnd);}catch(e){}
+    }
+  }
 }
-function filtraSessione(nome){_filtroSessione=nome;renderPillsFiltro();renderSessioni();}
+function toggleSessPillVar(idx){_pillsVarOpen[idx]=!_pillsVarOpen[idx];renderPillsFiltro();}
+function sessPillSearch(val){_sessPillSearch=val;renderPillsFiltro();}
+function filtraGruppo(nomiArr){
+  if(!nomiArr){_filtroSessione=null;}
+  else{
+    const same=sessPillArrEq(_filtroSessione,nomiArr);
+    _filtroSessione=same?null:nomiArr;
+  }
+  renderPillsFiltro();renderSessioni();
+}
+function filtraSessione(nome){filtraGruppo(nome===null?null:[nome]);}
 function renderPlPanel(){
   const wrap=document.getElementById('pl-cards-wrap');
   const grid=document.getElementById('pl-cards-grid');
@@ -1842,7 +2193,7 @@ function renderSessioni(){
   if(!_sessioni.length){tbody.innerHTML=`<tr class="empty-row"><td colspan="5"><div class="empty-ico">📅</div>Nessuna sessione.</td></tr>`;return;}
   renderPillsFiltro();
   let sessioni=_sessioni;
-  if(_filtroSessione)sessioni=sessioni.filter(s=>(s.nota||s.corsi_tipologie?.nome||'—')===_filtroSessione);
+  if(_filtroSessione)sessioni=sessioni.filter(s=>_filtroSessione.includes(s.nota||s.corsi_tipologie?.nome||'—'));
   if(_plFiltro)sessioni=sessioni.filter(s=>(s.nota||s.corsi_tipologie?.nome||'—')===_plFiltro);
   const future=sessioni.filter(s=>!isPassata(s.data_fine||s.data_inizio,s.forza_attiva));
   const passate=sessioni.filter(s=>isPassata(s.data_fine||s.data_inizio,s.forza_attiva));
@@ -2099,7 +2450,7 @@ function aggiornaKpi(){
   document.getElementById('stat-email').textContent=emailInv;
   document.getElementById('stat-da-inviare').textContent=totale-emailInv;
 }
-let _pillSelNome=null,_cascadeSelSessId=null;
+let _pillSelNome=null,_cascadeSelSessId=null,_zeroGroupOpen=false;
 let _acRiepilogoTimer=null;
 function chiudiAcRiepilogo(){document.getElementById('ac-riepilogo').style.display='none';}
 function onRiepilogoSearch(val){
@@ -2131,17 +2482,33 @@ function onRiepilogoFilter(){
 function renderPillsRiepilogo(){
   const cont=document.getElementById('riepilogo-pills');
   const nomi=[...new Set(_sessioni.map(s=>s.nota||s.corsi_tipologie?.nome||'—'))].sort();
-  const cardHtml=`<div class="riepilogo-grid">`+nomi.map(nome=>{
+  const conLiberi=[],senzaLiberi=[];
+  nomi.forEach(nome=>{
     const sessNome=_sessioni.filter(s=>(s.nota||s.corsi_tipologie?.nome||'—')===nome);
     const isc=_iscrizioni.filter(i=>sessNome.some(s=>s.id===i.sessione_id)).length;
     const libTot=sessNome.filter(s=>!isPassata(s.data_fine||s.data_inizio,s.forza_attiva)).reduce((acc,s)=>acc+Math.max(0,(s.posti_totali||0)-_iscrizioni.filter(i=>i.sessione_id===s.id).length),0);
-    const active=_pillSelNome===nome;
-    return`<div class="riepilogo-card${active?' active':''}" onclick="selPillRiepilogo('${nome.replace(/'/g,"\\'")}')">
-      <div class="rc-card-nome">${nome}</div>
-      <div class="rc-card-row"><span class="rc-card-isc">${isc} iscritti</span><span class="rc-card-lib">▲${libTot} lib</span></div>
+    (libTot===0?senzaLiberi:conLiberi).push({nome,isc,libTot});
+  });
+  function cardHtml(item){
+    const active=_pillSelNome===item.nome;
+    const zeroCls=item.libTot===0?' zero-lib':'';
+    return`<div class="riepilogo-card${active?' active':''}${zeroCls}" onclick="selPillRiepilogo('${item.nome.replace(/'/g,"\\'")}')">
+      <div class="rc-card-nome">${item.nome}</div>
+      <div class="rc-card-row"><span class="rc-card-isc">${item.isc} iscritti</span><span class="rc-card-lib">▲${item.libTot} lib</span></div>
     </div>`;
-  }).join('')+`</div>`;
-  cont.innerHTML=cardHtml;
+  }
+  const conLiberiHtml=`<div class="riepilogo-grid">`+conLiberi.map(cardHtml).join('')+`</div>`;
+  const zeroOpen=_zeroGroupOpen===true;
+  const senzaLiberiHtml=senzaLiberi.length?`
+    <div class="zero-group-toggle${zeroOpen?' open':''}" onclick="toggleZeroGroup()">
+      <span><i class="zg-chev">▶</i> Corsi al completo — 0 posti liberi<span class="zg-badge">${senzaLiberi.length}</span></span>
+    </div>
+    <div class="zero-group-body${zeroOpen?' open':''}" id="zero-group-body"><div class="riepilogo-grid">${senzaLiberi.map(cardHtml).join('')}</div></div>`:'';
+  cont.innerHTML=conLiberiHtml+senzaLiberiHtml;
+}
+function toggleZeroGroup(){
+  _zeroGroupOpen=!_zeroGroupOpen;
+  renderPillsRiepilogo();
 }
 function selPillRiepilogo(nome){
   _pillSelNome=(_pillSelNome===nome)?null:nome;
@@ -2264,14 +2631,30 @@ async function modificaIscrizione(id){const i=_iscrizioni.find(x=>x.id===id);if(
 // ── CERTIFICATI ── contatori e checkbox ──────────
 let _certSelCompagnia=new Set(),_certSelReparto=new Set(),_certSelStato=new Set(),_certSelCorso=new Set();
 
+async function loadScadenze12(){
+  setConnDot('loading');
+  try{
+    [_certificati,_certIscrizioni,_certSessioni,_nomiMapping,_notePersonale]=await Promise.all([
+      sbGetAll('corsi_certificati','order=cognome_nome,nome_corso'),
+      sbGetAll('corsi_iscritti','order=created_at.desc'),
+      sbGetAll('corsi_sessioni','select=id,nota,data_inizio&order=data_inizio'),
+      sbGetAll('corsi_nome_mapping','order=nome_csv,nome_sessione'),
+      sbGetAll('corsi_note_personale','order=updated_at.desc')
+    ]);
+    renderCertScadenze();
+    setConnDot('ok');
+  }catch(e){setConnDot('error');toast('Errore caricamento scadenze: '+e.message,'error');}
+}
+
 async function loadCertificati(){
   document.getElementById('cert-tbody').innerHTML=`<tr class="empty-row"><td colspan="6"><span class="spinner"></span></td></tr>`;
   setConnDot('loading');
   try{
-    [_certificati,_certIscrizioni,_certSessioni]=await Promise.all([
+    [_certificati,_certIscrizioni,_certSessioni,_notePersonale]=await Promise.all([
       sbGetAll('corsi_certificati','order=cognome_nome,nome_corso'),
       sbGet('corsi_iscritti','select=matricola_aziendale,sessione_id'),
-      sbGet('corsi_sessioni','select=id,data_inizio,nota&order=data_inizio')
+      sbGet('corsi_sessioni','select=id,data_inizio,nota&order=data_inizio'),
+      sbGetAll('corsi_note_personale','order=updated_at.desc')
     ]);
     fillCorsoSelects();
     buildCbGroups();
@@ -2452,22 +2835,7 @@ function renderCertificati(){
   aggiornaTagFiltri();
 }
 
-function apriImportaCsv(){_csvData=[];document.getElementById('csv-file').value='';document.getElementById('csv-preview').textContent='';document.getElementById('btn-importa-csv').disabled=true;document.getElementById('modal-csv-overlay').classList.add('open');}
-function chiudiCsv(){document.getElementById('modal-csv-overlay').classList.remove('open');}
-document.getElementById('modal-csv-overlay').addEventListener('click',function(e){if(e.target===this)chiudiCsv();});
-document.getElementById('csv-file').addEventListener('change',function(){
-  const file=this.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=function(e){
-    const lines=e.target.result.split('\n').filter(l=>l.trim());
-    const header=lines[0].split(',').map(h=>h.trim().toLowerCase().replace(/"/g,''));
-    _csvData=[];
-    for(let i=1;i<lines.length;i++){const vals=lines[i].split(',').map(v=>v.trim().replace(/^"|"$/g,''));const row={};header.forEach((h,idx)=>{row[h]=vals[idx]||'';});if(row.matricola_aziendale&&row.nome_corso)_csvData.push(row);}
-    document.getElementById('csv-preview').textContent=`✅ ${_csvData.length} righe valide trovate`;
-    document.getElementById('btn-importa-csv').disabled=_csvData.length===0;
-  };
-  reader.readAsText(file);
-});
+
 function toggleImpLogStorico(){
   const body=document.getElementById('imp-log-storico-body');
   const chev=document.getElementById('imp-log-storico-chev');
@@ -2498,26 +2866,199 @@ async function loadImpLogStorico(){
     }).join('');
   }catch(e){list.innerHTML='<div style="padding:10px 0;color:var(--muted)">Errore caricamento log</div>';}
 }
-async function importaCsv(){
+async function importaCsv_DISABLED(){
   if(!_csvData.length)return;
-  const btn=document.getElementById('btn-importa-csv');btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Importazione…';
-  const mats=[...new Set(_csvData.map(r=>r.matricola_aziendale))];
-  const dips=await sbGet('Dipendenti','Matricola_Aziendale=in.('+mats.map(m=>encodeURIComponent(m)).join(',')+')'+'&select=Matricola_Aziendale,Cognome,Nome').catch(()=>[]);
-  const dipMap={};dips.forEach(d=>{dipMap[d.Matricola_Aziendale]=(d.Cognome+' '+d.Nome).trim();});
-  let ok=0,err=0;
-  for(const row of _csvData){
-    try{
-      await fetch(`${SB_URL}/rest/v1/corsi_certificati?on_conflict=matricola_aziendale,nome_corso`,{method:'POST',headers:{...HDR,'Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify({matricola_aziendale:row.matricola_aziendale,nome_corso:row.nome_corso,cognome_nome:dipMap[row.matricola_aziendale]||row.cognome_nome||row.matricola_aziendale,data_rilascio:row.data_rilascio||null,data_scadenza:row.data_scadenza||null})});ok++;
-    }catch(e){err++;}
-  }
-  // Salva log nel DB
-  const corsiImportati=[...new Set(_csvData.map(r=>r.nome_corso).filter(Boolean))];
+  const erroriFase=[];
+  let ok=0,err=0,erroriRiga=[],daRimuovere=[],destinoMat={},rientrati=[],corsiNelFile=[],dipMap={};
   try{
-    await fetch(`${SB_URL}/rest/v1/corsi_import_log`,{method:'POST',headers:{...HDR},body:JSON.stringify({utente:currentUser||'',n_record:ok,corsi:corsiImportati})});
-  }catch(e){}
+    // 1. Matricole e corsi nel file
+    const mats=[...new Set(_csvData.map(r=>r.matricola_aziendale))];
+    corsiNelFile=[...new Set(_csvData.map(r=>r.nome_corso).filter(Boolean))];
+    console.log('[importCSV] step1 — matricole:',mats.length,'corsi:',corsiNelFile);
+
+    // 2. Recupero info marittimi da Dipendenti
+    try{
+      const dips=await sbGet('Dipendenti','Matricola_Aziendale=in.('+mats.map(m=>encodeURIComponent(m)).join(',')+')'+'&select=Matricola_Aziendale,Cognome,Nome,Reparto,Qualifica');
+      dips.forEach(d=>{dipMap[d.Matricola_Aziendale]={nome:(d.Cognome+' '+d.Nome).trim(),reparto:d.Reparto||'',qualifica:d.Qualifica||''};});
+      console.log('[importCSV] step2 — dipendenti trovati:',dips.length);
+    }catch(e){console.error('[importCSV] step2 FALLITO:',e);erroriFase.push('Recupero dati Dipendenti: '+e.message);}
+
+    // 3. Per ogni corso nel file, trovo le matricole già in Supabase per quel corso
+    const matsInSb={};
+    for(const corso of corsiNelFile){
+      try{
+        const existing=await sbGet('corsi_certificati',`nome_corso=eq.${encodeURIComponent(corso)}&select=matricola_aziendale`);
+        matsInSb[corso]=existing.map(r=>r.matricola_aziendale);
+      }catch(e){console.error('[importCSV] step3 FALLITO per corso',corso,':',e);erroriFase.push('Lettura certificati esistenti per "'+corso+'": '+e.message);matsInSb[corso]=[];}
+    }
+    console.log('[importCSV] step3 — matsInSb:',matsInSb);
+
+    // 4. Matricole da rimuovere = in Supabase per quel corso ma non nel file
+    const matsNelFilePerCorso={};
+    corsiNelFile.forEach(c=>{ matsNelFilePerCorso[c]=_csvData.filter(r=>r.nome_corso===c).map(r=>r.matricola_aziendale); });
+    for(const corso of corsiNelFile){
+      const toRemove=(matsInSb[corso]||[]).filter(m=>!matsNelFilePerCorso[corso].includes(m));
+      toRemove.forEach(m=>daRimuovere.push({matricola:m,corso}));
+    }
+    console.log('[importCSV] step4 — da rimuovere:',daRimuovere.length);
+
+    // 5. Per le matricole da rimuovere: controlla se hanno storico, se sì → ex_organico
+    const matsUniche=[...new Set(daRimuovere.map(r=>r.matricola))];
+    for(const mat of matsUniche){
+      try{
+        const [hasCerts,hasIscrizioni]=await Promise.all([
+          sbGet('corsi_certificati',`matricola_aziendale=eq.${encodeURIComponent(mat)}&limit=1`),
+          sbGet('corsi_iscritti',`matricola=eq.${encodeURIComponent(mat)}&limit=1`)
+        ]);
+        if(hasCerts.length||hasIscrizioni.length){
+          const info=dipMap[mat]||{};
+          const nomeFromCert=hasCerts.length?hasCerts[0].cognome_nome:'';
+          const resp=await fetch(`${SB_URL}/rest/v1/corsi_ex_organico?on_conflict=matricola`,{method:'POST',headers:{...HDR,'Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify({matricola:mat,cognome_nome:info.nome||nomeFromCert||mat,reparto:info.reparto||'',qualifica:info.qualifica||'',data_uscita:new Date().toISOString()})});
+          if(!resp.ok)throw new Error(await resp.text());
+          destinoMat[mat]='ex_organico';
+        }else{
+          destinoMat[mat]='cancellato_senza_storico';
+        }
+      }catch(e){console.error('[importCSV] step5 FALLITO per matricola',mat,':',e);erroriFase.push('Verifica storico/Ex Organico per '+mat+': '+e.message);destinoMat[mat]='errore: '+e.message;}
+    }
+    console.log('[importCSV] step5 — destinoMat:',destinoMat);
+
+    // 6. Cancella i certificati delle matricole non più presenti per quel corso
+    for(const {matricola,corso} of daRimuovere){
+      try{
+        const resp=await fetch(`${SB_URL}/rest/v1/corsi_certificati?matricola_aziendale=eq.${encodeURIComponent(matricola)}&nome_corso=eq.${encodeURIComponent(corso)}`,{method:'DELETE',headers:HDR});
+        if(!resp.ok)throw new Error(await resp.text());
+      }catch(e){console.error('[importCSV] step6 FALLITO:',matricola,corso,e);erroriFase.push('Cancellazione certificato '+matricola+'/'+corso+': '+e.message);}
+    }
+    console.log('[importCSV] step6 — cancellazioni completate');
+
+    // 7. Upsert dei certificati nel file
+    for(const row of _csvData){
+      try{
+        const info=dipMap[row.matricola_aziendale]||{};
+        const resp=await fetch(`${SB_URL}/rest/v1/corsi_certificati?on_conflict=matricola_aziendale,nome_corso`,{method:'POST',headers:{...HDR,'Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify({matricola_aziendale:row.matricola_aziendale,nome_corso:row.nome_corso,cognome_nome:info.nome||row.cognome_nome||row.matricola_aziendale,data_rilascio:row.data_rilascio||null,data_scadenza:row.data_scadenza||null})});
+        if(!resp.ok){throw new Error(await resp.text());}
+        ok++;
+      }catch(e){err++;erroriRiga.push({matricola:row.matricola_aziendale,corso:row.nome_corso,messaggio:(e.message||'Errore').slice(0,140)});}
+    }
+    console.log('[importCSV] step7 — ok:',ok,'err:',err);
+
+    // 8. Rientro automatico: se una matricola in ex_organico è nel file → la rimuovo da ex_organico
+    if(mats.length){
+      for(const mat of mats){
+        try{
+          const inEx=await sbGet('corsi_ex_organico',`matricola=eq.${encodeURIComponent(mat)}&limit=1`);
+          if(inEx.length){
+            const resp=await fetch(`${SB_URL}/rest/v1/corsi_ex_organico?matricola=eq.${encodeURIComponent(mat)}`,{method:'DELETE',headers:HDR});
+            if(!resp.ok)throw new Error(await resp.text());
+            rientrati.push({matricola:mat,nome:inEx[0].cognome_nome||mat});
+          }
+        }catch(e){console.error('[importCSV] step8 FALLITO per',mat,e);erroriFase.push('Controllo rientro Ex Organico per '+mat+': '+e.message);}
+      }
+    }
+    console.log('[importCSV] step8 — rientrati:',rientrati.length);
+
+    // 9. Log import (best-effort, non blocca)
+    try{
+      await fetch(`${SB_URL}/rest/v1/corsi_import_log`,{method:'POST',headers:{...HDR},body:JSON.stringify({utente:currentUser||'',n_record:ok,corsi:corsiNelFile})});
+    }catch(e){console.warn('[importCSV] step9 (log) fallito, non bloccante:',e);}
+
+  }catch(e){
+    console.error('[importCSV] ERRORE GENERALE NON GESTITO:',e);
+    erroriFase.push('Errore generale: '+e.message);
+  }
   btn.disabled=false;btn.textContent='⬆ Importa';chiudiCsv();
-  toast(err===0?`✅ ${ok} certificati importati`:`⚠️ ${ok} ok, ${err} errori`,err>0?'error':'');
-  await loadCertificati();
+  apriImportRes({
+    ok,err,erroriRiga,erroriFase,
+    rimossi:daRimuovere.map(function(r){
+      const info=dipMap[r.matricola]||{};
+      return {matricola:r.matricola,corso:r.corso,nome:info.nome||r.matricola,destino:destinoMat[r.matricola]};
+    }),
+    rientrati,
+    corsiNelFile
+  });
+  await loadCertificati().catch(function(e){console.error('[importCSV] reload finale fallito:',e);});
+}
+function apriImpRiepilogo(r){
+  _ultimoImpRiepilogo=r;
+  const kpi=document.getElementById('ir-kpi');
+  kpi.innerHTML=
+    '<div><div class="ir-n" style="color:var(--green)">'+r.ok+'</div><div class="ir-l">Importati ok</div></div>'
+    +'<div><div class="ir-n" style="'+(r.err?'color:#a32d2d':'')+'">'+r.err+'</div><div class="ir-l">Errori</div></div>'
+    +'<div><div class="ir-n">'+r.daRimuovere.length+'</div><div class="ir-l">Rimossi da un corso</div></div>'
+    +'<div><div class="ir-n">'+r.exOrganicoRientrati.length+'</div><div class="ir-l">Rientrati da Ex Org.</div></div>';
+
+  function sezione(titolo,items,renderRow){
+    let html='<div class="ir-section-title">'+titolo+' ('+items.length+')</div>';
+    if(!items.length){html+='<div class="ir-empty">Nessuno</div>';return html;}
+    html+=items.map(renderRow).join('');
+    return html;
+  }
+  const fmtD=d=>{if(!d)return'—';const p=d.slice(0,10).split('-');return p.length<3?d:p[2]+'/'+p[1]+'/'+p[0];};
+
+  let body='';
+  body+=sezione('🗄️ Spostati in Ex Organico (avevano sessione passata/futura per quel corso)',r.exOrganicoCreati,function(x){
+    return '<div class="ir-row" style="grid-template-columns:2fr 1fr 1.4fr 1fr"><span>'+(x.nome||'—')+'</span><span>'+x.matricola+'</span><span>'+x.corso+'</span><span style="color:#1a6b3a">sess. '+fmtD(x.dataSessione)+'</span></div>';
+  });
+  body+=sezione('🗑️ Rimossi dal corso senza sessione collegata (non in Ex Organico)',r.cancellatiSenzaStorico,function(x){
+    return '<div class="ir-row" style="grid-template-columns:2fr 1fr 1.4fr 1fr"><span>'+(x.nome||'—')+'</span><span>'+x.matricola+'</span><span>'+x.corso+'</span><span style="color:var(--muted)">eliminato</span></div>';
+  });
+  body+=sezione('↩️ Rientrati da Ex Organico (corso ripreso nel file)',r.exOrganicoRientrati,function(x){
+    return '<div class="ir-row" style="grid-template-columns:2fr 1fr 1.4fr"><span>'+(x.nome||'—')+'</span><span>'+x.matricola+'</span><span style="color:var(--green)">'+x.corso+'</span></div>';
+  });
+  document.getElementById('ir-body').innerHTML=body;
+  document.getElementById('modal-import-res-overlay').classList.add('open');
+}
+
+function chiudiImportRes(){document.getElementById('modal-import-res-overlay').classList.remove('open');}
+document.getElementById('modal-import-res-overlay').addEventListener('click',function(e){if(e.target===this)chiudiImportRes();});
+var _ultimoImpRiepilogo=null;
+function esportaImpRiepilogoPDF(){
+  const r=_ultimoImpRiepilogo;
+  if(!r){toast('Nessun riepilogo da esportare','error');return;}
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+  const oggi=new Date().toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
+  let y=15;
+  doc.setFontSize(14);doc.setFont('helvetica','bold');
+  doc.text('Riepilogo Importazione Certificati',14,y);
+  y+=6;
+  doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(120,120,120);
+  doc.text('Generato il '+oggi,14,y);
+  doc.setTextColor(0,0,0);
+  y+=8;
+  doc.setFontSize(10);doc.setFont('helvetica','bold');
+  doc.text('Importati ok: '+r.ok+'    Errori: '+r.err+'    Rimossi da un corso: '+r.daRimuovere.length+'    Rientrati da Ex Org.: '+r.exOrganicoRientrati.length,14,y);
+  y+=8;
+  const fmtD=d=>{if(!d)return'—';const p=String(d).slice(0,10).split('-');return p.length<3?d:p[2]+'/'+p[1]+'/'+p[0];};
+  function tabella(titolo,items,cols,rows){
+    if(y>270){doc.addPage();y=15;}
+    doc.setFontSize(11);doc.setFont('helvetica','bold');
+    doc.text(titolo+' ('+items.length+')',14,y);
+    y+=2;
+    if(!items.length){
+      doc.setFontSize(9);doc.setFont('helvetica','italic');doc.setTextColor(140,140,140);
+      doc.text('Nessuno',14,y+5);doc.setTextColor(0,0,0);
+      y+=10;
+      return;
+    }
+    doc.autoTable({
+      startY:y+2,head:[cols],body:rows,
+      margin:{left:14,right:14},styles:{fontSize:8},headStyles:{fillColor:[60,80,110]},
+      didDrawPage:function(){}
+    });
+    y=doc.lastAutoTable.finalY+8;
+  }
+  tabella('🗄️ Spostati in Ex Organico',r.exOrganicoCreati,
+    ['Nome','Matricola','Corso','Sessione'],
+    r.exOrganicoCreati.map(x=>[x.nome||'—',x.matricola,x.corso,fmtD(x.dataSessione)]));
+  tabella('🗑️ Rimossi senza storico (eliminati)',r.cancellatiSenzaStorico,
+    ['Nome','Matricola','Corso'],
+    r.cancellatiSenzaStorico.map(x=>[x.nome||'—',x.matricola,x.corso]));
+  tabella('↩️ Rientrati da Ex Organico',r.exOrganicoRientrati,
+    ['Nome','Matricola','Corso'],
+    r.exOrganicoRientrati.map(x=>[x.nome||'—',x.matricola,x.corso]));
+  doc.save('riepilogo_importazione_'+new Date().toISOString().slice(0,10)+'.pdf');
 }
 
 const CFG_EMAIL_BASE=`Buongiorno [NOME],\nLa convochiamo per i seguenti corsi che si terranno presso [CENTRO] :\n[CORSO]\nSi prega di presentarsi puntualmente con i documenti originali, libretto e documento d'identità.\nVI RICORDIAMO CHE SVOLGENDO I CORSI SOTTO MALATTIA E' PROIBITO !!!\n>>> SI RICHIEDE CONFERMA RICEZIONE MAIL. <<<\nCordiali saluti,\n\n[FIRMA]`;
@@ -3264,8 +3805,48 @@ function renderStatBlocchi(){
     return '<div class="stat-mini-bar"><span style="width:80px;flex-shrink:0">'+e[0]+'</span><div class="stat-mini-track"><div class="stat-mini-fill" style="width:'+Math.round(e[1]/maxRep*100)+'%;background:'+STAT_COLORS[i%STAT_COLORS.length]+'"></div></div><span class="stat-mini-val">'+e[1].toLocaleString('it-IT')+'</span></div>';
   }).join('');
 }
+var _scad12SelReparto=new Set(), _scad12SelCompagnia=new Set();
+function toggleScad12Filtro(group,val,checked){
+  var set=group==='reparto'?_scad12SelReparto:_scad12SelCompagnia;
+  if(checked)set.add(val);else set.delete(val);
+  renderCertScadenze();
+}
+function resetScad12Filtri(){
+  _scad12SelReparto.clear();_scad12SelCompagnia.clear();
+  document.querySelectorAll('#scad12-cb-reparto input,#scad12-cb-compagnia input').forEach(function(cb){cb.checked=false;});
+  renderCertScadenze();
+}
+function sessIdsPerCorsoScad12(corso){
+  // Usa la tabella corsi_nome_mapping (Admin -> Associazioni Nomi) per trovare
+  // tutti i nomi sessione associati a questa tipologia corso (case-insensitive su nome_csv)
+  var nomiSessioneAssociati=(_nomiMapping||[]).filter(function(m){
+    return (m.nome_csv||'').toLowerCase()===corso.toLowerCase();
+  }).map(function(m){return m.nome_sessione;});
+  if(!nomiSessioneAssociati.length){
+    // fallback: comportamento legacy se non c'è alcuna associazione configurata
+    nomiSessioneAssociati=['Refresh '+corso];
+  }
+  return _certSessioni.filter(function(s){
+    return nomiSessioneAssociati.indexOf(s.nota||'')>=0;
+  }).map(function(s){return s.id;});
+}
 function renderCertScadenze(){
-  const tuttiCert=_certificati.filter(function(c){return (c.stato||'').toLowerCase()==='italiani';});
+  const tuttiCert=_certificati.filter(function(c){
+    if((c.stato||'').toLowerCase()!=='italiani')return false;
+    if(_scad12SelReparto.size){
+      var rep=(c.reparto||'').trim();
+      var match=false;
+      _scad12SelReparto.forEach(function(r){if(r.toLowerCase()===rep.toLowerCase())match=true;});
+      if(!match)return false;
+    }
+    if(_scad12SelCompagnia.size){
+      var comp=(c.compagnia||'').trim();
+      var match2=false;
+      _scad12SelCompagnia.forEach(function(cc){if(cc.toLowerCase()===comp.toLowerCase())match2=true;});
+      if(!match2)return false;
+    }
+    return true;
+  });
   const corsiUnici=[...new Set(tuttiCert.map(function(c){return c.nome_corso;}).filter(Boolean))].sort();
   // finestra sempre: mese corrente + 11 mesi futuri (nessun mese passato)
   const mesi12=[];
@@ -3281,65 +3862,160 @@ function renderCertScadenze(){
     var allMese=tuttiCert.filter(function(c){return c.data_scadenza&&c.data_scadenza.startsWith(m.key);});
     _certScadData['MESE||'+m.key]={mese:m.label,key:m.key,records:allMese.sort(function(a,b){return (a.data_scadenza||'').localeCompare(b.data_scadenza||'');})};
   });
-  // helper: conta coperti per un array di records e un nome corso
+  // helper: conta chi ha una nota personale attiva (esclusione manuale dal conteggio reali)
+  function contaNotePersonale(records){
+    var matCon=npMatricoleConNota();
+    return records.filter(function(c){
+      var mat=c.matricola_aziendale||c.matricola||'';
+      return mat&&matCon.has(mat);
+    }).length;
+  }
+  // helper: conta "non reali" = sbarco > 8 mesi fa SENZA alcuna prenotazione (futura o passata), non imbarcato
+  function contaInattivi(records, sessIdsCorso){
+    var cutoff=new Date();cutoff.setMonth(cutoff.getMonth()-8);
+    return records.filter(function(c){
+      var mat=c.matricola_aziendale||c.matricola||'';
+      var hasPren=mat&&sessIdsCorso.length?_certIscrizioni.some(function(i){return (i.matricola_aziendale||i.matricola||'')=== mat && sessIdsCorso.indexOf(i.sessione_id)>=0;}):false;
+      if(hasPren)return false;
+      var attualeVal=(c.attuale&&c.attuale!=='0'&&c.attuale.trim()!=='')?c.attuale.trim().toLowerCase():null;
+      if(attualeVal==='imbarcato')return false;
+      var sbarcoVal=(c.data_sbarco&&c.data_sbarco!=='0'&&c.data_sbarco!=='1900-01-01')?c.data_sbarco:null;
+      if(!sbarcoVal)return false;
+      return new Date(sbarcoVal)<cutoff;
+    }).length;
+  }
+  // helper: trova la sessione prenotata per una matricola (tra le sessioni del corso)
+  function trovaSessionePren(mat, sessIds){
+    if(!mat||!sessIds.length)return null;
+    var isc=_certIscrizioni.find(function(i){return (i.matricola_aziendale||i.matricola||'')=== mat && sessIds.indexOf(i.sessione_id)>=0;});
+    if(!isc)return null;
+    return _certSessioni.find(function(s){return s.id===isc.sessione_id;})||null;
+  }
+  // helper: conta prenotati con sessione FUTURA (corso ancora da fare) per un array di records e un nome corso
   function contaCoperti(records, corso){
+    var sessIds=sessIdsPerCorsoScad12(corso);
+    var oggi=new Date();
     return records.filter(function(c){
       var mat=c.matricola_aziendale||c.matricola||'';
       if(!mat)return false;
-      // trova sessioni che abbiano il nome corso corrispondente
-      var nomeRefresh='Refresh '+corso;
-      var sessIds=_certSessioni.filter(function(s){
-        return (s.nota||'')===nomeRefresh;
-      }).map(function(s){return s.id;});
-      if(!sessIds.length)return false;
-      return _certIscrizioni.some(function(i){
-        return (i.matricola_aziendale||i.matricola||'')=== mat && sessIds.indexOf(i.sessione_id)>=0;
-      });
+      var sess=trovaSessionePren(mat,sessIds);
+      if(!sess||!sess.data_inizio)return false;
+      return new Date(sess.data_inizio)>=oggi;
     }).length;
   }
-  const tHead='<thead><tr><th class="st-corso">Corso</th>'+mesi12.map(function(m){
-    var idxEsc=('MESE||'+m.key).replace(/'/g,"\\'");
-    return '<th><div style="display:flex;flex-direction:column;align-items:center;gap:2px;">'+m.label+'<button class="stat-scad-num" style="font-size:.6rem;color:var(--muted);padding:0;margin:0;" onclick="certStampaMesePDF(\''+idxEsc+'\')" title="Stampa PDF mese">🖨</button></div></th>';
-  }).join('')+'</tr></thead>';
-  const tBody='<tbody>'+corsiUnici.map(function(corso){
-    var cells=mesi12.map(function(m){
+  // helper: conta "corso effettuato, in attesa certificato" (prenotazione con sessione PASSATA)
+  function contaCorsoFattoAttesaCert(records, corso){
+    var sessIds=sessIdsPerCorsoScad12(corso);
+    var oggi=new Date();
+    return records.filter(function(c){
+      var mat=c.matricola_aziendale||c.matricola||'';
+      if(!mat)return false;
+      var sess=trovaSessionePren(mat,sessIds);
+      if(!sess||!sess.data_inizio)return false;
+      return new Date(sess.data_inizio)<oggi;
+    }).length;
+  }
+  var gridCols='100px '+corsiUnici.map(function(){return 'minmax(120px,1fr)';}).join(' ');
+  var hdrCols='<div style="display:grid;grid-template-columns:'+gridCols+';border-bottom:1px solid var(--border);">'
+    +'<div style="padding:10px 12px;background:var(--surface2);"></div>'
+    +corsiUnici.map(function(corso){
+      return '<div style="padding:10px 8px;background:var(--surface2);border-left:1px solid var(--border);text-align:center;font-size:.78rem;font-weight:600;color:var(--text);line-height:1.35;">'+corso+'</div>';
+    }).join('')
+    +'</div>';
+  var bodyRows=mesi12.map(function(m,mi){
+    var rowBg='var(--surface)';
+    var idxEscMese=('MESE||'+m.key).replace(/'/g,"\'");
+    var cells=corsiUnici.map(function(corso){
       var matches=tuttiCert.filter(function(c){return c.nome_corso===corso&&c.data_scadenza&&c.data_scadenza.startsWith(m.key);});
       matches.sort(function(a,b){return (a.data_scadenza||'').localeCompare(b.data_scadenza||'');});
       var v=matches.length;
-      if(!v)return '<td><span class="stat-scad-zero">—</span></td>';
+      if(!v)return '<div style="border-left:1px solid var(--border);text-align:center;padding:11px 4px;background:'+rowBg+';font-size:.75rem;color:var(--muted);">—</div>';
       var idx=corso+'||'+m.key;
       var cop=contaCoperti(matches,corso);
       _certScadData[idx]={corso:corso,mese:m.label,key:m.key,records:matches};
-      var idxEsc=idx.replace(/'/g,"\\'");
-      return '<td><button class="stat-scad-num" onclick="apriCertScad(\''+idxEsc+'\')" style="display:inline-flex;gap:2px;align-items:baseline;">'
-        +'<span>'+v+'</span><span style="color:var(--text);opacity:.35">/</span><span style="color:var(--green)">'+cop+'</span>'
-        +'</button></td>';
+      var sessIdsCell=sessIdsPerCorsoScad12(corso);
+      var inatt=contaInattivi(matches,sessIdsCell);
+      var attesaCert=contaCorsoFattoAttesaCert(matches,corso);
+      var note=contaNotePersonale(matches);
+      var reali=v-inatt-attesaCert-note;
+      var idxEsc=idx.replace(/'/g,"\'");
+      return '<div style="border-left:1px solid var(--border);text-align:center;padding:11px 6px;background:'+rowBg+';">'
+        +'<button class="stat-scad-num" onclick="apriCertScad(\''+idxEsc+'\')" style="display:inline-flex;gap:3px;align-items:baseline;">'
+        +'<span style="font-size:1.15em;font-weight:600;color:var(--accent);">'+reali+'</span>'
+        +'<span style="color:var(--text);opacity:.3;font-size:.85em;">/</span>'
+        +'<span style="font-size:1.05em;color:var(--green);">'+cop+'</span>'
+        +'<span style="font-size:.76em;color:var(--muted);margin-left:2px;">('+v+')</span>'
+        +'</button></div>';
     }).join('');
-    return '<tr><td class="st-corso">'+corso+'</td>'+cells+'</tr>';
-  }).join('')+'</tbody>';
-  document.getElementById('cert-scad-table').innerHTML='<table>'+tHead+tBody+'</table>';
+    return '<div style="display:grid;grid-template-columns:'+gridCols+';border-bottom:1px solid var(--border);align-items:center;">'
+      +'<div style="padding:11px 12px;background:'+rowBg+';display:flex;align-items:center;gap:6px;">'
+      +'<span style="font-size:.82rem;font-weight:600;color:var(--text);">'+m.label+'</span>'
+      +'<button onclick="certStampaMesePDF(\''+idxEscMese+'\')" title="Stampa PDF mese" style="background:none;border:none;cursor:pointer;padding:0;font-size:.82rem;color:#E24B4A;line-height:1;">&#128424;</button>'
+      +'</div>'
+      +cells
+      +'</div>';
+  }).join('');
+  document.getElementById('cert-scad-table').innerHTML='<div style="overflow-x:auto;">'+hdrCols+bodyRows+'</div>';
 }
 function apriCertScad(idx){
   const d=_certScadData[idx];if(!d)return;
   const tot=d.records.length;
   document.getElementById('cert-scad-title').textContent=d.corso+' · '+d.mese+' — '+tot+' person'+(tot===1?'a':'e');
-  // build lookup: matricola -> data sessione per questo corso
-  var nomeRefresh='Refresh '+d.corso;
-  var sessIds=_certSessioni.filter(function(s){return (s.nota||'')=== nomeRefresh;}).map(function(s){return s.id;});
-  function getDataPrenotazione(matricola){
+  var sessIds=sessIdsPerCorsoScad12(d.corso);
+  function trovaSessione(matricola){
     var mat=matricola||'';
     if(!mat||!sessIds.length)return null;
-    var isc=_certIscrizioni.find(function(i){
-      return (i.matricola_aziendale||i.matricola||'')=== mat && sessIds.indexOf(i.sessione_id)>=0;
-    });
+    var isc=_certIscrizioni.find(function(i){return (i.matricola_aziendale||i.matricola||'')=== mat && sessIds.indexOf(i.sessione_id)>=0;});
     if(!isc)return null;
-    var sess=_certSessioni.find(function(s){return s.id===isc.sessione_id;});
-    return sess?sess.data_inizio:null;
+    return _certSessioni.find(function(s){return s.id===isc.sessione_id;})||null;
   }
-  document.getElementById('cert-scad-list').innerHTML=d.records.map(function(c){
-    var dataPren=getDataPrenotazione(c.matricola_aziendale||c.matricola);
-    var prenHtml=dataPren
-      ?'<span style="color:var(--green);font-weight:600;">'+fmtBreve(dataPren)+'</span>'
+  var now=new Date();
+  var cutoff8m=new Date(now);cutoff8m.setMonth(cutoff8m.getMonth()-8);
+  var cutoff18m=new Date(now);cutoff18m.setMonth(cutoff18m.getMonth()-18);
+  var cutoff36m=new Date(now);cutoff36m.setMonth(cutoff36m.getMonth()-36);
+
+  var prenotatiFuturi=0, corsoFattoAttesaCert=0, imbarcatiBanner=0, sbarcoPassato8m=0, noteCount=0;
+  var matConNota=npMatricoleConNota();
+  d.records.forEach(function(c){
+    var mat=c.matricola_aziendale||c.matricola||'';
+    if(mat&&matConNota.has(mat))noteCount++;
+    var sess=trovaSessione(mat);
+    if(sess&&sess.data_inizio){
+      if(new Date(sess.data_inizio)>=now){prenotatiFuturi++;}
+      else{corsoFattoAttesaCert++;}
+      return;
+    }
+    var attualeVal=(c.attuale&&c.attuale!=='0'&&c.attuale.trim()!=='')?c.attuale.trim().toLowerCase():null;
+    if(attualeVal==='imbarcato'){imbarcatiBanner++;return;}
+    var sbarcoVal=(c.data_sbarco&&c.data_sbarco!=='0'&&c.data_sbarco!=='1900-01-01')?c.data_sbarco:null;
+    if(sbarcoVal&&new Date(sbarcoVal)<cutoff8m){sbarcoPassato8m++;}
+  });
+  var realiCount=tot-sbarcoPassato8m-corsoFattoAttesaCert-noteCount;
+
+  function pillBtn(tipo,num,label,tooltip,bg,tc,tc2){
+    bg=bg||'#EAF3DE';tc=tc||'#27500A';tc2=tc2||'#3B6D11';
+    return '<div title="'+tooltip+'" onclick="apriPillModal(\''+tipo+'\')" style="cursor:pointer;text-align:center;padding:12px 8px;background:'+bg+';border-radius:10px;transition:opacity .15s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">'
+      +'<div style="font-size:26px;font-weight:500;color:'+tc+';">'+num+'</div>'
+      +'<div style="font-size:11px;color:'+tc2+';margin-top:3px;line-height:1.25;">'+label+'</div>'
+      +'</div>';
+  }
+  var tooltipSbarco='8–18 mesi · 18–36 mesi · oltre 36 mesi';
+  var bannerHtml='<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-bottom:12px;">'
+    +pillBtn('scadenza',tot,'in scadenza','Tutti i certificati in scadenza questo mese')
+    +pillBtn('sbarco',sbarcoPassato8m,'sbarchi &gt;8 mesi',tooltipSbarco)
+    +pillBtn('attesacert',corsoFattoAttesaCert,'corso fatto<br>attesa cert.','Sessione già svolta, certificato da aggiornare')
+    +pillBtn('note',noteCount,'note<br>personali','Esclusi manualmente tramite una nota personale')
+    +pillBtn('imbarcati',imbarcatiBanner,'imbarcati','Attualmente imbarcati (nessuna prenotazione)')
+    +pillBtn('reali',realiCount,'scadenze reali','Totale − sbarco passato − corso fatto/attesa cert. − note personali','#FAEEDA','#633806','#7A4413')
+    +pillBtn('prenotati',prenotatiFuturi,'prenotati','Iscritti a una sessione futura (corso da fare)','#FAEEDA','#633806','#7A4413')
+    +'</div>';
+  var hdrRowMain='<div style="display:grid;grid-template-columns:2fr 1fr 1.2fr 1fr 1fr 1.2fr 1fr 1.4fr;gap:8px;padding:5px 8px;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);margin-bottom:2px;">'
+    +'<span>Nome</span><span>Matricola</span><span>Qualifica</span><span>Scadenza</span><span>Prenotazione</span><span>Attuale</span><span>Sbarco</span><span>Note</span></div>';
+  document.getElementById('cert-scad-list').innerHTML=bannerHtml+hdrRowMain+d.records.map(function(c){
+    var mat=c.matricola_aziendale||c.matricola||'';
+    var sess=trovaSessione(mat);
+    var prenHtml=sess&&sess.data_inizio
+      ?'<span style="color:var(--green);font-weight:600;">'+fmtBreve(sess.data_inizio)+'</span>'
       :'<span style="color:var(--muted);font-style:italic;">—</span>';
     var attualeVal=(c.attuale&&c.attuale!=='0'&&c.attuale.trim()!=='')?c.attuale:null;
     var sbarcoVal=(c.data_sbarco&&c.data_sbarco!=='0'&&c.data_sbarco!=='1900-01-01')?c.data_sbarco:null;
@@ -3349,7 +4025,11 @@ function apriCertScad(idx){
     var sbarcoHtml=sbarcoVal
       ?'<span>'+fmtBreve(sbarcoVal)+'</span>'
       :'<span style="color:var(--muted);font-style:italic;">—</span>';
-    return '<div style="display:grid;grid-template-columns:2fr 1fr 1.2fr 1fr 1fr 1.2fr 1fr;gap:8px;padding:5px 8px;border-radius:6px;background:var(--surface2);font-size:.74rem;align-items:center;">'
+    var notaObj=_notePersonale.find(function(n){return n.matricola_aziendale===mat;});
+    var notaHtml=notaObj
+      ?'<span style="color:#993556;font-size:.7rem" title="'+(notaObj.nota||'').replace(/"/g,'&quot;')+'">📌 '+(notaObj.nota||'').slice(0,28)+((notaObj.nota||'').length>28?'…':'')+'</span>'
+      :'<span style="color:var(--muted);font-style:italic;">—</span>';
+    return '<div style="display:grid;grid-template-columns:2fr 1fr 1.2fr 1fr 1fr 1.2fr 1fr 1.4fr;gap:8px;padding:5px 8px;border-radius:6px;background:var(--surface2);font-size:.74rem;align-items:center;">'
       +'<span>'+(c.cognome_nome||'—')+'</span>'
       +'<span>'+(c.matricola_aziendale||'—')+'</span>'
       +'<span>'+(c.qualifica||'—')+'</span>'
@@ -3357,20 +4037,106 @@ function apriCertScad(idx){
       +'<span>'+prenHtml+'</span>'
       +'<span>'+attualeHtml+'</span>'
       +'<span>'+sbarcoHtml+'</span>'
+      +'<span>'+notaHtml+'</span>'
       +'</div>';
   }).join('');
   document.getElementById('cert-scad-overlay').style.display='flex';
   _certScadCurr=d;
 }
 function chiudiCertScad(){document.getElementById('cert-scad-overlay').style.display='none';}
+
+/* ── SOTTO-MODALE PILL ── */
+var _pillOverlayData=null;
+function apriPillModal(tipo){
+  if(!_certScadCurr)return;
+  var d=_certScadCurr;
+  var sessIds=sessIdsPerCorsoScad12(d.corso);
+  function trovaSessione(matricola){
+    var mat=matricola||'';
+    if(!mat||!sessIds.length)return null;
+    var isc=_certIscrizioni.find(function(i){return (i.matricola_aziendale||i.matricola||'')=== mat && sessIds.indexOf(i.sessione_id)>=0;});
+    if(!isc)return null;
+    return _certSessioni.find(function(s){return s.id===isc.sessione_id;})||null;
+  }
+  var now=new Date();
+  var cutoff8m=new Date(now);cutoff8m.setMonth(cutoff8m.getMonth()-8);
+  var cutoff18m=new Date(now);cutoff18m.setMonth(cutoff18m.getMonth()-18);
+  var cutoff36m=new Date(now);cutoff36m.setMonth(cutoff36m.getMonth()-36);
+  var titoli={scadenza:'In scadenza — tutti',sbarco:'Sbarchi &gt;8 mesi',attesacert:'Corso effettuato — attesa certificato',note:'Note personali',imbarcati:'Imbarcati',reali:'Scadenze reali',prenotati:'Prenotati (sessione futura)'};
+  var matConNota=npMatricoleConNota();
+  var filtri={
+    scadenza:function(){return d.records;},
+    prenotati:function(){return d.records.filter(function(c){var mat=c.matricola_aziendale||c.matricola||'';var sess=trovaSessione(mat);return sess&&sess.data_inizio&&new Date(sess.data_inizio)>=now;});},
+    attesacert:function(){return d.records.filter(function(c){var mat=c.matricola_aziendale||c.matricola||'';var sess=trovaSessione(mat);return sess&&sess.data_inizio&&new Date(sess.data_inizio)<now;});},
+    note:function(){return d.records.filter(function(c){var mat=c.matricola_aziendale||c.matricola||'';return mat&&matConNota.has(mat);});},
+    imbarcati:function(){return d.records.filter(function(c){var mat=c.matricola_aziendale||c.matricola||'';var sess=trovaSessione(mat);if(sess)return false;var att=(c.attuale&&c.attuale!=='0'&&c.attuale.trim()!=='')?c.attuale.trim().toLowerCase():null;return att==='imbarcato';});},
+    sbarco:function(){return d.records.filter(function(c){var mat=c.matricola_aziendale||c.matricola||'';var sess=trovaSessione(mat);if(sess)return false;var att=(c.attuale&&c.attuale!=='0'&&c.attuale.trim()!=='')?c.attuale.trim().toLowerCase():null;if(att==='imbarcato')return false;var sv=(c.data_sbarco&&c.data_sbarco!=='0'&&c.data_sbarco!=='1900-01-01')?c.data_sbarco:null;return !!sv&&new Date(sv)<cutoff8m;});},
+    reali:function(){return d.records.filter(function(c){var mat=c.matricola_aziendale||c.matricola||'';if(mat&&matConNota.has(mat))return false;var sess=trovaSessione(mat);if(sess&&sess.data_inizio&&new Date(sess.data_inizio)<now)return false;if(sess)return true;var att=(c.attuale&&c.attuale!=='0'&&c.attuale.trim()!=='')?c.attuale.trim().toLowerCase():null;if(att==='imbarcato')return true;var sv=(c.data_sbarco&&c.data_sbarco!=='0'&&c.data_sbarco!=='1900-01-01')?c.data_sbarco:null;if(!sv)return true;return new Date(sv)>=cutoff8m;});}
+  };
+  var recs=(filtri[tipo]||filtri.scadenza)();
+  _pillOverlayData={records:recs,corso:d.corso,mese:d.mese,tipo:tipo,titolo:titoli[tipo]||tipo,sessIds:sessIds};
+  var extraHtml='';
+  if(tipo==='sbarco'){
+    var f8_18=recs.filter(function(c){var ds=new Date(c.data_sbarco);return ds>=cutoff18m;}).length;
+    var f18_36=recs.filter(function(c){var ds=new Date(c.data_sbarco);return ds<cutoff18m&&ds>=cutoff36m;}).length;
+    var f36=recs.filter(function(c){return new Date(c.data_sbarco)<cutoff36m;}).length;
+    extraHtml='<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:10px;">'
+      +'<div style="text-align:center;padding:6px;background:#FAEEDA;border-radius:6px;font-size:11px;font-weight:700;color:#633806;">8 – 18 mesi<br>'+f8_18+'</div>'
+      +'<div style="text-align:center;padding:6px;background:#F09595;border-radius:6px;font-size:11px;font-weight:700;color:#501313;">18 – 36 mesi<br>'+f18_36+'</div>'
+      +'<div style="text-align:center;padding:6px;background:#FCEBEB;border-radius:6px;font-size:11px;font-weight:700;color:#501313;">oltre 36 mesi<br>'+f36+'</div>'
+      +'</div>';
+  }
+  var righeHtml=recs.map(function(c){
+    var mat=c.matricola_aziendale||c.matricola||'';
+    var sess=trovaSessione(mat);
+    var prenHtml=sess&&sess.data_inizio?'<span style="color:var(--green);font-weight:600;">'+fmtBreve(sess.data_inizio)+'</span>':'<span style="color:var(--muted);font-style:italic;">—</span>';
+    var att=(c.attuale&&c.attuale!=='0'&&c.attuale.trim()!=='')?c.attuale:null;
+    var sb=(c.data_sbarco&&c.data_sbarco!=='0'&&c.data_sbarco!=='1900-01-01')?c.data_sbarco:null;
+    var notaObj=_notePersonale.find(function(n){return n.matricola_aziendale===mat;});
+    var notaHtml=notaObj
+      ?'<span style="color:#993556;font-size:.7rem" title="'+(notaObj.nota||'').replace(/"/g,'&quot;')+'">📌 '+(notaObj.nota||'').slice(0,28)+((notaObj.nota||'').length>28?'…':'')+'</span>'
+      :'<span style="color:var(--muted);font-style:italic;">—</span>';
+    return '<div style="display:grid;grid-template-columns:2fr 1fr 1.2fr 1fr 1fr 1.2fr 1fr 1.4fr;gap:8px;padding:5px 8px;border-radius:6px;background:var(--surface2);font-size:.74rem;align-items:center;">'
+      +'<span>'+(c.cognome_nome||'—')+'</span>'
+      +'<span>'+(c.matricola_aziendale||'—')+'</span>'
+      +'<span>'+(c.qualifica||'—')+'</span>'
+      +'<span>'+(c.data_scadenza?fmtBreve(c.data_scadenza):'—')+'</span>'
+      +'<span>'+prenHtml+'</span>'
+      +'<span>'+(att?'<span style="color:var(--text)">'+att+'</span>':'<span style="color:var(--muted);font-style:italic;">—</span>')+'</span>'
+      +'<span>'+(sb?'<span>'+fmtBreve(sb)+'</span>':'<span style="color:var(--muted);font-style:italic;">—</span>')+'</span>'
+      +'<span>'+notaHtml+'</span>'
+      +'</div>';
+  }).join('');
+  var hdrRow='<div style="display:grid;grid-template-columns:2fr 1fr 1.2fr 1fr 1fr 1.2fr 1fr 1.4fr;gap:8px;padding:4px 8px;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);">'
+    +'<span>Nome</span><span>Matricola</span><span>Qualifica</span><span>Scadenza</span><span>Prenotazione</span><span>Attuale</span><span>Sbarco</span><span>Note</span></div>';
+  document.getElementById('pill-modal-title').innerHTML=d.corso+' · '+d.mese+' — '+titoli[tipo]+' ('+recs.length+')';
+  document.getElementById('pill-modal-body').innerHTML=extraHtml+hdrRow+righeHtml;
+  document.getElementById('pill-modal-overlay').style.display='flex';
+}
+function chiudiPillModal(){document.getElementById('pill-modal-overlay').style.display='none';}
+function stampaPillPDF(){
+  if(!_pillOverlayData)return;
+  var {jsPDF}=window.jspdf;var doc=new jsPDF({orientation:'landscape'});
+  var recs=_pillOverlayData.records;
+  var sessIds=sessIdsPerCorsoScad12(_pillOverlayData.corso);
+  var enriched=recs.map(function(c){
+    var mat=c.matricola_aziendale||c.matricola||'';
+    var isc=mat&&sessIds.length?_certIscrizioni.find(function(i){return (i.matricola_aziendale||i.matricola||'')=== mat&&sessIds.indexOf(i.sessione_id)>=0;}):null;
+    var sess=isc?_certSessioni.find(function(s){return s.id===isc.sessione_id;}):null;
+    return Object.assign({},c,{_dataPren:sess?sess.data_inizio:null});
+  });
+  doc.setFontSize(10);doc.setFont('helvetica','bold');
+  doc.text(_pillOverlayData.corso+' — '+_pillOverlayData.mese+' — '+_pillOverlayData.titolo,14,14);
+  _pdfScadTable(doc,enriched,_pillOverlayData.titolo+' ('+enriched.length+')',22,true);
+  doc.save('scadenze_'+_pillOverlayData.corso+'_'+_pillOverlayData.tipo+'.pdf');
+}
 var _certScadCurr=null,_certScadData={},_certIscrizioni=[],_certSessioni=[];
 function stampaCertScadPDF(){
   if(!_certScadCurr)return;
   const {jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'landscape'});
   const tot=_certScadCurr.records.length;
   // Arricchisce i record con la data prenotazione per il PDF
-  var nomeRefresh='Refresh '+_certScadCurr.corso;
-  var sessIds=_certSessioni.filter(function(s){return (s.nota||'')===nomeRefresh;}).map(function(s){return s.id;});
+  var sessIds=sessIdsPerCorsoScad12(_certScadCurr.corso);
   var records=_certScadCurr.records.map(function(c){
     var mat=c.matricola_aziendale||c.matricola||'';
     var isc=mat&&sessIds.length?_certIscrizioni.find(function(i){return (i.matricola_aziendale||i.matricola||'')=== mat&&sessIds.indexOf(i.sessione_id)>=0;}):null;
@@ -3403,8 +4169,7 @@ function certStampaMesePDF(idx){
     var recs=d.records.filter(function(c){return (c.nome_corso||'—')===corso;});
     if(!recs.length)return;
     // Arricchisce con _dataPren
-    var nomeRefresh='Refresh '+corso;
-    var sessIds=_certSessioni.filter(function(s){return (s.nota||'')===nomeRefresh;}).map(function(s){return s.id;});
+    var sessIds=sessIdsPerCorsoScad12(corso);
     var recsEnriched=recs.map(function(c){
       var mat=c.matricola_aziendale||c.matricola||'';
       var isc=mat&&sessIds.length?_certIscrizioni.find(function(i){return (i.matricola_aziendale||i.matricola||'')=== mat&&sessIds.indexOf(i.sessione_id)>=0;}):null;
@@ -3483,6 +4248,103 @@ function erSetTab(btn,target){
   if(target==='mar'){_erMarFilter=btn.dataset.filter;renderErMarittimi();}
   else{_erCenFilter=btn.dataset.filter;renderErCentri();}
 }
+/* ===== NOTE PERSONALE ===== */
+let _notePersonale=[];
+let _npSelDip=null;
+let _npAcTimer=null;
+async function loadNotePersonale(){
+  try{
+    _notePersonale=await sbGetAll('corsi_note_personale','order=updated_at.desc');
+    renderNpList();
+  }catch(e){toast('Errore caricamento note: '+e.message,'error');}
+}
+function renderNpList(){
+  const cont=document.getElementById('np-list');
+  if(!_notePersonale.length){cont.innerHTML='<div class="empty"><div class="empty-ico">🗒️</div><p>Nessuna nota personale inserita.</p></div>';return;}
+  cont.innerHTML=_notePersonale.map(function(n){
+    return '<div class="riepilogo-item" style="cursor:pointer" onclick="apriNpModalEsistente('+n.id+')">'
+      +'<div class="riepilogo-row">'
+      +'<div style="align-self:center"><div class="rc-nome">'+(n.cognome_nome||'—')+'</div><div class="rc-sub">'+(n.qualifica||'')+(n.qualifica&&n.matricola_aziendale?' · ':'')+(n.matricola_aziendale?'<span style="font-family:\'DM Mono\',monospace">'+n.matricola_aziendale+'</span>':'')+'</div></div>'
+      +'<div class="rc-cell-corso" style="grid-column:span 2">'+(n.nota||'—').replace(/</g,'&lt;')+'</div>'
+      +'<div class="rc-cell" style="font-size:.7rem;color:var(--muted);text-align:right">'+(n.updated_at?new Date(n.updated_at).toLocaleDateString('it-IT'):'')+'</div>'
+      +'</div></div>';
+  }).join('');
+}
+function chiudiAcNp(){const ac=document.getElementById('ac-np');if(ac)ac.style.display='none';}
+function onNpSearch(val){
+  clearTimeout(_npAcTimer);
+  chiudiAcNp();
+  if(!val||val.length<2)return;
+  _npAcTimer=setTimeout(async function(){
+    try{
+      const res=await sbGet('Dipendenti','or=(Cognome.ilike.*'+encodeURIComponent(val)+'*,Nome.ilike.*'+encodeURIComponent(val)+'*,Matricola_Aziendale.ilike.*'+encodeURIComponent(val)+'*)&select=Matricola_Aziendale,Cognome,Nome,Qualifica&limit=8');
+      const ac=document.getElementById('ac-np');
+      if(!res.length){ac.style.display='none';return;}
+      ac.innerHTML=res.map(function(d){
+        const nome=(d.Cognome+' '+d.Nome).trim();
+        return '<div onclick="selAcNp(\''+nome.replace(/'/g,"\\'")+'\',\''+d.Matricola_Aziendale+'\',\''+(d.Qualifica||'').replace(/'/g,"\\'")+'\')" style="padding:7px 12px;cursor:pointer;border-bottom:1px solid var(--border);font-size:.82rem">'
+          +'<span style="font-weight:700">'+d.Cognome+' '+d.Nome+'</span> <span style="font-size:.72rem;color:var(--muted)">· '+d.Matricola_Aziendale+'</span>'
+          +'</div>';
+      }).join('');
+      ac.style.display='block';
+    }catch(e){}
+  },300);
+}
+function selAcNp(nome,mat,qualifica){
+  chiudiAcNp();
+  document.getElementById('np-search').value='';
+  apriNpModalNuova(nome,mat,qualifica);
+}
+function apriNpModalNuova(nome,mat,qualifica){
+  const esistente=_notePersonale.find(function(n){return n.matricola_aziendale===mat;});
+  if(esistente){apriNpModalEsistente(esistente.id);return;}
+  _npSelDip={id:null,cognome_nome:nome,matricola_aziendale:mat,qualifica:qualifica};
+  document.getElementById('np-modal-nome').textContent=nome;
+  document.getElementById('np-modal-sub').textContent=(qualifica||'—')+' · '+mat;
+  document.getElementById('np-modal-nota').value='';
+  document.getElementById('np-modal-del').style.display='none';
+  document.getElementById('np-modal-overlay').style.display='flex';
+}
+function apriNpModalEsistente(id){
+  const n=_notePersonale.find(function(x){return x.id===id;});
+  if(!n)return;
+  _npSelDip={id:n.id,cognome_nome:n.cognome_nome,matricola_aziendale:n.matricola_aziendale,qualifica:n.qualifica};
+  document.getElementById('np-modal-nome').textContent=n.cognome_nome||'—';
+  document.getElementById('np-modal-sub').textContent=(n.qualifica||'—')+' · '+(n.matricola_aziendale||'—');
+  document.getElementById('np-modal-nota').value=n.nota||'';
+  document.getElementById('np-modal-del').style.display='inline-flex';
+  document.getElementById('np-modal-overlay').style.display='flex';
+}
+function chiudiNpModal(){document.getElementById('np-modal-overlay').style.display='none';_npSelDip=null;}
+async function salvaNotaPersonale(){
+  if(!_npSelDip)return;
+  const nota=document.getElementById('np-modal-nota').value.trim();
+  if(!nota){toast('Scrivi una nota prima di salvare','error');return;}
+  try{
+    if(_npSelDip.id){
+      await sbPatch('corsi_note_personale',_npSelDip.id,{nota:nota,updated_at:new Date().toISOString()});
+    }else{
+      await sbPost('corsi_note_personale',{cognome_nome:_npSelDip.cognome_nome,matricola_aziendale:_npSelDip.matricola_aziendale,qualifica:_npSelDip.qualifica,nota:nota,updated_at:new Date().toISOString(),operatore:currentUser});
+    }
+    toast('✅ Nota salvata');
+    chiudiNpModal();
+    await loadNotePersonale();
+  }catch(e){toast('Errore: '+e.message,'error');}
+}
+async function eliminaNotaPersonale(){
+  if(!_npSelDip||!_npSelDip.id)return;
+  if(!confirm('Eliminare la nota per '+_npSelDip.cognome_nome+'?'))return;
+  try{
+    await sbDelete('corsi_note_personale',_npSelDip.id);
+    toast('✅ Nota eliminata');
+    chiudiNpModal();
+    await loadNotePersonale();
+  }catch(e){toast('Errore: '+e.message,'error');}
+}
+function npMatricoleConNota(){
+  return new Set(_notePersonale.map(function(n){return n.matricola_aziendale;}).filter(Boolean));
+}
+
 async function loadEmailRiepilogo(){
   setConnDot('loading');
   try{
@@ -3551,7 +4413,7 @@ function erApriEmailMar(id){
 function renderErKpiCen(){
   var sc=_sessioni.filter(function(s){return _iscrizioni.some(function(i){return i.sessione_id===s.id;});});
   var inv=sc.filter(function(s){return s.email_inviata_at;}).length;
-  var mod=sc.filter(function(s){return s.email_inviata_at&&s.iscritti_updated_at&&s.iscritti_updated_at>s.email_inviata_at;}).length;
+  var mod=sc.filter(function(s){return s.email_inviata_at&&s.iscritti_updated_at&&s.iscritti_updated_at>s.email_inviata_at&&!s.email_archiviata;}).length;
   var daInv=sc.filter(function(s){return !s.email_inviata_at;}).length;
   document.getElementById('er-cen-kpi').innerHTML='<div class="er-kpi"><div class="er-kpi-n">'+sc.length+'</div><div class="er-kpi-l">Sessioni totali</div></div><div class="er-kpi kpi-inv"><div class="er-kpi-n" style="color:#2E7D32">'+inv+'</div><div class="er-kpi-l">Email inviate</div></div><div class="er-kpi kpi-mod"><div class="er-kpi-n" style="color:#C0561A">'+mod+'</div><div class="er-kpi-l">Modificate</div></div><div class="er-kpi kpi-dai"><div class="er-kpi-n" style="color:#B8860B">'+daInv+'</div><div class="er-kpi-l">Da inviare</div></div>';
   document.querySelector('.er-tab[data-target="cen"][data-filter="da-inviare"]').textContent='Da inviare ('+daInv+')';
@@ -3561,8 +4423,9 @@ function renderErKpiCen(){
 }
 function renderErCentri(){
   var q=(document.getElementById('er-cen-search').value||'').toLowerCase();
+  var oggi=new Date().toISOString().slice(0,10);
   var lista=_sessioni.filter(function(s){return _iscrizioni.some(function(i){return i.sessione_id===s.id;});});
-  lista=lista.map(function(s){return Object.assign({},s,{isModificata:!!(s.email_inviata_at&&s.iscritti_updated_at&&s.iscritti_updated_at>s.email_inviata_at),nIscritti:_iscrizioni.filter(function(i){return i.sessione_id===s.id;}).length,nomeSessione:s.nota||(s.corsi_tipologie&&s.corsi_tipologie.nome)||'--',nomeCentro:(s.corsi_centri&&s.corsi_centri.nome)||'--'});});
+  lista=lista.map(function(s){return Object.assign({},s,{isModificataRaw:!!(s.email_inviata_at&&s.iscritti_updated_at&&s.iscritti_updated_at>s.email_inviata_at),isModificata:!!(s.email_inviata_at&&s.iscritti_updated_at&&s.iscritti_updated_at>s.email_inviata_at&&!s.email_archiviata),nIscritti:_iscrizioni.filter(function(i){return i.sessione_id===s.id;}).length,nomeSessione:s.nota||(s.corsi_tipologie&&s.corsi_tipologie.nome)||'--',nomeCentro:(s.corsi_centri&&s.corsi_centri.nome)||'--'});});
   lista.sort(function(a,b){if(_erCenOrd==='az')return a.nomeCentro.localeCompare(b.nomeCentro,'it');return(a.data_inizio||'9999').localeCompare(b.data_inizio||'9999');});
   if(q)lista=lista.filter(function(s){return s.nomeCentro.toLowerCase().includes(q)||s.nomeSessione.toLowerCase().includes(q);});
   if(_erCenFilter==='da-inviare')lista=lista.filter(function(s){return !s.email_inviata_at;});
@@ -3574,7 +4437,14 @@ function renderErCentri(){
   var fmtD=function(d){return d?d.slice(5,10).split('-').reverse().join('/'):'--';}
   tbody.innerHTML=lista.map(function(s){
     var stato,rowCls='';
-    if(s.isModificata){rowCls=' class="er-modified"';stato='<span class="er-pill er-pill-red">&#9888; modificata</span><div class="er-ts">inviata '+fmt(s.email_inviata_at)+'</div><div class="er-ts-warn">iscritti cambiati '+fmt(s.iscritti_updated_at)+'</div>';}
+    if(s.isModificata){
+      rowCls=' class="er-modified"';
+      var corsoIniziato=!!(s.data_inizio&&s.data_inizio<oggi);
+      var archBtn=corsoIniziato
+        ?'<button class="er-arch-btn" onclick="archiviaModificaCentro('+s.id+')" title="Corso gi\u00e0 iniziato: sposta tra le Inviate">&#10142; sposta in inviate</button>'
+        :'<button class="er-arch-btn" disabled title="Disponibile solo dopo la data inizio corso">&#10142; sposta in inviate</button>';
+      stato='<span class="er-pill er-pill-red">&#9888; modificata</span><div class="er-ts">inviata '+fmt(s.email_inviata_at)+'</div><div class="er-ts-warn">iscritti cambiati '+fmt(s.iscritti_updated_at)+'</div>'+archBtn;
+    }
     else if(s.email_inviata_at){stato='<span class="er-pill er-pill-green">inviata</span><div class="er-ts">'+fmt(s.email_inviata_at)+'</div>';}
     else{stato='<span class="er-pill er-pill-amber">da inviare</span>';}
     var bc=s.email_inviata_at?(s.isModificata?'warn':'resend'):'send';
@@ -3582,6 +4452,16 @@ function renderErCentri(){
     var act=isAdmin?'<td style="text-align:center"><button class="er-act-btn '+bc+'" onclick="apriModalEmail('+s.id+')" title="Email centro">'+bi+'</button></td>':'';
     return'<tr'+rowCls+'><td style="font-weight:600">'+s.nomeCentro+'</td><td>'+s.nomeSessione+'</td><td>'+fmtD(s.data_inizio)+'</td><td>'+fmtD(s.data_fine)+'</td><td>'+s.nIscritti+'</td><td>'+stato+'</td>'+act+'</tr>';
   }).join('');
+}
+async function archiviaModificaCentro(id){
+  try{
+    await sbPatch('corsi_sessioni',id,{email_archiviata:true});
+    var s=_sessioni.find(function(x){return x.id===id;});
+    if(s)s.email_archiviata=true;
+    toast('✅ Spostata tra le Inviate');
+    renderErKpiCen();
+    renderErCentri();
+  }catch(e){toast('Errore: '+e.message,'error');}
 }
 // ========== MAPPING NOMI CSV ↔ SESSIONI ==========
 let _nomiMapping = [];
@@ -3690,8 +4570,16 @@ async function loadCorsiEffettuati() {
     // 1bis. Solleciti già inviati (ultimo invio per matricola+corso)
     _ceSolleciti = {};
     try {
-      const soll = await sbGet('corsi_solleciti', 'select=matricola,corso,inviato_da,inviato_il&order=inviato_il.asc');
-      soll.forEach(s => { _ceSolleciti[s.matricola + '||' + (s.corso || '').trim().toLowerCase()] = { da: s.inviato_da || '', il: s.inviato_il }; });
+      const soll = await sbGet('corsi_solleciti', 'select=matricola,corso,inviato_da,inviato_il,ricevuto_il&order=inviato_il.asc');
+      soll.forEach(s => { _ceSolleciti[s.matricola + '||' + (s.corso || '').trim().toLowerCase()] = { da: s.inviato_da || '', il: s.inviato_il, ricevuto: s.ricevuto_il || null }; });
+    } catch(e) {}
+
+    // 1ter. Ex Organico Sessioni: matricole da escludere da Corsi Effettuati
+    //       (chi è uscito dall'organico con un corso/sessione collegato — escluso per qualsiasi suo corso pendente)
+    const exOrganicoSet = new Set();
+    try {
+      const exOrg = await sbGet('corsi_ex_organico', 'select=matricola,corso');
+      exOrg.forEach(r => { if (r.corso && r.corso.trim()) exOrganicoSet.add(r.matricola); });
     } catch(e) {}
     // sessNomi = Set di tutti i nomi sessione mappati (lowercase)
     const sessNomiMappati = new Set(mappingRows.map(m => m.nome_sessione.trim().toLowerCase()));
@@ -3724,20 +4612,20 @@ async function loadCorsiEffettuati() {
     if (!iscrBatch.length) { _ceData = []; renderCorsiEffettuati(); return; }
 
     // 4. Certificati esistenti per le matricole coinvolte
-    // certMap: matricola → Set di nome_csv (lc) presenti in corsi_certificati
+    // certMap: matricola → { nome_corso_lc: data_scadenza }
     const mats = [...new Set(iscrBatch.map(i => i.matricola_aziendale).filter(Boolean))];
-    const certMap = {}; // matricola → { nome_corso_lc: data_rilascio_piu_recente }
+    const certMap = {}; // matricola → { nome_corso_lc: data_scadenza }
     for (let i = 0; i < mats.length; i += chunk) {
       const c = mats.slice(i, i + chunk);
-      const certs = await sbGet('corsi_certificati', `select=matricola_aziendale,nome_corso,data_rilascio&matricola_aziendale=in.(${c.map(m => encodeURIComponent(m)).join(',')})`);
+      const certs = await sbGet('corsi_certificati', `select=matricola_aziendale,nome_corso,data_scadenza&matricola_aziendale=in.(${c.map(m => encodeURIComponent(m)).join(',')})`);
       certs.forEach(cert => {
         if (!cert.nome_corso) return;
         if (!certMap[cert.matricola_aziendale]) certMap[cert.matricola_aziendale] = {};
         const k = cert.nome_corso.trim().toLowerCase();
-        // Tieni la data_rilascio più recente per ogni nome_corso
+        // Tieni la data_scadenza più recente per ogni nome_corso
         const existing = certMap[cert.matricola_aziendale][k];
-        if (!existing || (cert.data_rilascio && cert.data_rilascio > existing)) {
-          certMap[cert.matricola_aziendale][k] = cert.data_rilascio || '9999-12-31';
+        if (!existing || (cert.data_scadenza && cert.data_scadenza > existing)) {
+          certMap[cert.matricola_aziendale][k] = cert.data_scadenza || null;
         }
       });
     }
@@ -3763,27 +4651,42 @@ async function loadCorsiEffettuati() {
       if (!sess) return;
       const nomeCorso = sess.nota || (sess.corsi_tipologie && sess.corsi_tipologie.nome) || '—';
       const nomeNorm = nomeCorso.trim().toLowerCase();
+
+      // Esclusione Ex Organico Sessioni: la matricola è uscita dall'organico con un corso collegato
+      if (exOrganicoSet.has(mat)) return;
+
       const isAssociato = sessNomiMappati.has(nomeNorm);
 
-      // Controllo certificato: cerca se uno dei nome_csv che mappano a questo nome_sessione
-      // è presente nei certificati del marittimo
+      // Controllo certificato: valido se data_scadenza scade nell'anno di riferimento configurato.
+      // La data_rilascio non è affidabile (è sempre la data storica del primo rilascio).
+      // Se _annoRif è impostato: hasCert = data_scadenza.year === _annoRif
+      // Se _annoRif non è impostato: hasCert = data_scadenza >= dataSessione (fallback)
       let hasCert = false;
       if (isAssociato && certMap[mat]) {
-        const dataSessione = sess.data_fine || sess.data_inizio || '';
-        // Trova tutti i nome_csv che mappano a questo nome_sessione
+        function certValida(scadenza) {
+          if (!scadenza) return false;
+          if (_annoRif) {
+            return scadenza.slice(0, 4) === String(_annoRif);
+          }
+          // fallback senza anno configurato
+          const dataSessione = sess.data_fine || sess.data_inizio || '';
+          return scadenza >= dataSessione;
+        }
+        // Cerca tra i nome_csv che mappano a questo nome_sessione
         for (const [csv, sessArr] of Object.entries(csvToSess)) {
           if (sessArr.includes(nomeNorm) && certMap[mat][csv]) {
-            // Ha certificato: scarta solo se data_rilascio >= data sessione
-            if (certMap[mat][csv] >= dataSessione) { hasCert = true; break; }
+            if (certValida(certMap[mat][csv])) { hasCert = true; break; }
           }
         }
         // Fallback: corrispondenza diretta nome_corso = nome_sessione
         if (!hasCert && certMap[mat][nomeNorm]) {
-          if (certMap[mat][nomeNorm] >= dataSessione) hasCert = true;
+          if (certValida(certMap[mat][nomeNorm])) hasCert = true;
         }
       }
 
-      if (hasCert) return;
+      const sollecitoRec = _ceSolleciti[mat + '||' + nomeNorm] || null;
+      if (hasCert && !sollecitoRec) return;
+
       const dip = dipMap[mat] || {};
       rows.push({
         matricola: mat,
@@ -3844,6 +4747,25 @@ let _ceSubTab = 'dainviare';
 let _ceSolleciti = {};
 let _ceGroupRender = [];
 let _ceSort = { key: 'nome', dir: 1 };
+let _annoRif = null; // Anno certificati validi — caricato da corsi_config
+
+async function loadAnnoRif() {
+  try {
+    const rows = await sbGet('corsi_config', 'chiave=eq.anno_certificati_validi&limit=1');
+    _annoRif = rows.length ? rows[0].valore : null;
+  } catch(e) { _annoRif = null; }
+}
+async function saveAnnoRif(anno) {
+  try {
+    await fetch(`${SB_URL}/rest/v1/corsi_config?on_conflict=chiave`, {
+      method: 'POST',
+      headers: { ...HDR, 'Prefer': 'resolution=merge-duplicates' },
+      body: JSON.stringify({ chiave: 'anno_certificati_validi', valore: String(anno), aggiornato_il: new Date().toISOString() })
+    });
+    _annoRif = String(anno);
+    toast('✅ Anno aggiornato');
+  } catch(e) { toast('Errore salvataggio anno: ' + e.message, 'error'); }
+}
 
 function ceFmtData(d) {
   if (!d) return '—';
@@ -3872,6 +4794,7 @@ function setCeSubTab(tab) {
   _ceSubTab = tab;
   document.getElementById('ce-subpill-dainviare').classList.toggle('active', tab === 'dainviare');
   document.getElementById('ce-subpill-inviate').classList.toggle('active', tab === 'inviate');
+  document.getElementById('ce-subpill-ricevute').classList.toggle('active', tab === 'ricevute');
   document.getElementById('ce-subpill-tutti').classList.toggle('active', tab === 'tutti');
   renderCorsiEffettuati();
 }
@@ -3887,7 +4810,8 @@ function ceUpdateFacetCounts() {
   let base = _ceTab === 'assoc' ? _ceData.filter(r => r.associato) : _ceData.filter(r => !r.associato);
   if (_ceTab === 'assoc') {
     if (_ceSubTab === 'dainviare') base = base.filter(r => !sollOf(r));
-    else if (_ceSubTab === 'inviate') base = base.filter(r => sollOf(r));
+    else if (_ceSubTab === 'inviate') base = base.filter(r => { const s = sollOf(r); return s && !s.ricevuto; });
+    else if (_ceSubTab === 'ricevute') base = base.filter(r => { const s = sollOf(r); return s && s.ricevuto; });
   }
 
   // Applica tutti i filtri attivi tranne quello indicato in "except" (conteggio a faccette)
@@ -3993,15 +4917,18 @@ function renderCorsiEffettuati() {
 
     // Contatori sub-pill (persone distinte, in base ai filtri corso/reparto/periodo attivi)
     const matDaInv = new Set(baseFiltrata.filter(r => !sollOf(r)).map(r => r.matricola));
-    const matInv = new Set(baseFiltrata.filter(r => sollOf(r)).map(r => r.matricola));
+    const matInv = new Set(baseFiltrata.filter(r => { const s = sollOf(r); return s && !s.ricevuto; }).map(r => r.matricola));
+    const matRic = new Set(baseFiltrata.filter(r => { const s = sollOf(r); return s && s.ricevuto; }).map(r => r.matricola));
     const matTutti = new Set(baseFiltrata.map(r => r.matricola));
     document.getElementById('ce-cnt-dainviare').textContent = matDaInv.size;
     document.getElementById('ce-cnt-inviate').textContent = matInv.size;
+    document.getElementById('ce-cnt-ricevute').textContent = matRic.size;
     document.getElementById('ce-cnt-tutti').textContent = matTutti.size;
 
     let righeSub;
     if (_ceSubTab === 'dainviare') righeSub = baseFiltrata.filter(r => !sollOf(r));
-    else if (_ceSubTab === 'inviate') righeSub = baseFiltrata.filter(r => sollOf(r));
+    else if (_ceSubTab === 'inviate') righeSub = baseFiltrata.filter(r => { const s = sollOf(r); return s && !s.ricevuto; });
+    else if (_ceSubTab === 'ricevute') righeSub = baseFiltrata.filter(r => { const s = sollOf(r); return s && s.ricevuto; });
     else righeSub = baseFiltrata;
 
     // Raggruppo per matricola: una riga per persona con tutti i corsi pendenti/inviati
@@ -4013,7 +4940,7 @@ function renderCorsiEffettuati() {
           reparto: r.reparto, email: r.email, corsi: []
         };
       }
-      groupsMap[r.matricola].corsi.push({ corso: r.corso, data_sessione: r.data_sessione, sessione_id: r.sessione_id, soll: sollOf(r) });
+      groupsMap[r.matricola].corsi.push({ matricola: r.matricola, corso: r.corso, data_sessione: r.data_sessione, sessione_id: r.sessione_id, soll: sollOf(r) });
     });
     let groups = Object.values(groupsMap);
     groups.forEach(g => g.corsi.sort((a, b) => (a.data_sessione || '').localeCompare(b.data_sessione || '')));
@@ -4037,11 +4964,18 @@ function renderCorsiEffettuati() {
         const total = g.corsi.length;
         const sentCount = g.corsi.filter(c => c.soll).length;
         const allSent = sentCount === total;
-        const corsiHtml = g.corsi.map(c =>
-          `<div class="ce-corso-line"><span>${c.corso}</span><span class="ce-corso-date">${ceFmtData(c.data_sessione)}</span>` +
-          (c.soll ? `<span class="ce-corso-sent-tag">✓ ${fmtSollTs(c.soll.il)} · ${c.soll.da || ''}</span>` : '') +
-          `</div>`
-        ).join('');
+        const corsiHtml = g.corsi.map((c, cidx) => {
+          const ricevuto = c.soll && c.soll.ricevuto;
+          let tag = '';
+          if (ricevuto) {
+            tag = `<span class="ce-corso-sent-tag" style="color:var(--green);font-weight:700">✅ Ricevuto · ${fmtSollTs(c.soll.ricevuto)}</span>` +
+              `<button class="ce-mark-btn" onclick="ceUnmarkRicevuto(${idx},${cidx})" title="Riporta in Inviate" style="margin-left:6px">↩</button>`;
+          } else if (c.soll) {
+            tag = `<span class="ce-corso-sent-tag">✓ ${fmtSollTs(c.soll.il)} · ${c.soll.da || ''}</span>` +
+              `<button class="ce-mark-btn" onclick="ceMarkRicevuto(${idx},${cidx})" title="Segna come ricevuto" style="margin-left:6px">✅</button>`;
+          }
+          return `<div class="ce-corso-line"><span>${c.corso}</span><span class="ce-corso-date">${ceFmtData(c.data_sessione)}</span>${tag}</div>`;
+        }).join('');
         let emailCell;
         if (!g.email) {
           emailCell = '<button class="btn-email disabled" title="Email non disponibile" disabled>✉️</button>';
@@ -4139,7 +5073,7 @@ async function ceSollecitoGroup(idx) {
   try {
     for (const c of corsi) {
       await sbPost('corsi_solleciti', { matricola: g.matricola, sessione_id: c.sessione_id || null, corso: c.corso, inviato_da: currentUser || '' });
-      _ceSolleciti[g.matricola + '||' + (c.corso || '').trim().toLowerCase()] = { da: currentUser || '', il: new Date().toISOString() };
+      _ceSolleciti[g.matricola + '||' + (c.corso || '').trim().toLowerCase()] = { da: currentUser || '', il: new Date().toISOString(), ricevuto: null };
     }
     renderCorsiEffettuati();
     toast(multi ? `✉️ Sollecito registrato per ${corsi.length} corsi` : '✉️ Sollecito registrato');
@@ -4147,9 +5081,221 @@ async function ceSollecitoGroup(idx) {
     toast('⚠️ Sollecito non registrato: ' + e.message, 'error');
   }
 }
+
+// Segna manualmente come ricevuto il certificato per un corso (sposta la riga nel pill Ricevute).
+// idx/cidx si riferiscono a _ceGroupRender[idx].corsi[cidx], così non serve ridigitare matricola/corso.
+async function ceMarkRicevuto(idx, cidx) {
+  const g = _ceGroupRender[idx];
+  const c = g && g.corsi[cidx];
+  if (!c) return;
+  const key = c.matricola + '||' + (c.corso || '').trim().toLowerCase();
+  const ts = new Date().toISOString();
+  try {
+    const resp = await fetch(`${SB_URL}/rest/v1/corsi_solleciti?matricola=eq.${encodeURIComponent(c.matricola)}&corso=eq.${encodeURIComponent(c.corso)}`,
+      { method: 'PATCH', headers: { ...HDR, 'Prefer': 'return=representation' }, body: JSON.stringify({ ricevuto_il: ts }) });
+    if (!resp.ok) throw new Error(await resp.text());
+    if (_ceSolleciti[key]) _ceSolleciti[key].ricevuto = ts;
+    renderCorsiEffettuati();
+    toast('✅ Segnato come ricevuto');
+  } catch (e) {
+    toast('⚠️ Errore: ' + e.message, 'error');
+  }
+}
+
+// Riporta una riga già marcata "ricevuta" nuovamente in Inviate (annulla la marcatura manuale).
+async function ceUnmarkRicevuto(idx, cidx) {
+  const g = _ceGroupRender[idx];
+  const c = g && g.corsi[cidx];
+  if (!c) return;
+  const key = c.matricola + '||' + (c.corso || '').trim().toLowerCase();
+  try {
+    const resp = await fetch(`${SB_URL}/rest/v1/corsi_solleciti?matricola=eq.${encodeURIComponent(c.matricola)}&corso=eq.${encodeURIComponent(c.corso)}`,
+      { method: 'PATCH', headers: { ...HDR, 'Prefer': 'return=representation' }, body: JSON.stringify({ ricevuto_il: null }) });
+    if (!resp.ok) throw new Error(await resp.text());
+    if (_ceSolleciti[key]) _ceSolleciti[key].ricevuto = null;
+    renderCorsiEffettuati();
+    toast('↩ Riportato in Inviate');
+  } catch (e) {
+    toast('⚠️ Errore: ' + e.message, 'error');
+  }
+}
 // ========== FINE CORSI EFFETTUATI ==========
 
 // ========== FINE RIEPILOGO EMAIL ==========
+
+// ========== EX ORGANICO ==========
+let _exOrganico = [];
+async function loadExOrganico() {
+  const cont = document.getElementById('eo-list');
+  if (!cont) return;
+  cont.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">⏳ Caricamento…</div>';
+  document.getElementById('eo-detail').style.display = 'none';
+  document.getElementById('eo-list').style.display = '';
+  try {
+    const tutti = await sbGet('corsi_ex_organico', 'order=cognome_nome');
+    _exOrganico = tutti.filter(r => !r.corso);
+    if (!_exOrganico.length) {
+      cont.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted);font-size:.85rem">Nessun marittimo in ex organico (storico)</div>';
+      return;
+    }
+    const fmt = ts => { if (!ts) return '—'; const d = new Date(ts); return d.toLocaleDateString('it-IT', {day:'2-digit',month:'2-digit',year:'numeric'}); };
+    cont.innerHTML = _exOrganico.map((r, idx) =>
+      `<div class="eo-card" onclick="apriEoDetail(${idx})">
+        <div class="eo-card-info">
+          <div class="eo-card-nome">${r.cognome_nome || r.matricola}</div>
+          <div class="eo-card-meta">Mat. ${r.matricola}${r.reparto ? ' · ' + r.reparto : ''}${r.qualifica ? ' · ' + r.qualifica : ''}</div>
+        </div>
+        <div class="eo-card-data">Uscito il<br><strong>${fmt(r.data_uscita)}</strong></div>
+      </div>`
+    ).join('');
+  } catch(e) {
+    cont.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted)">⚠️ ${e.message}</div>`;
+  }
+}
+
+async function apriEoDetail(idx) {
+  const r = _exOrganico[idx];
+  if (!r) return;
+  document.getElementById('eo-list').style.display = 'none';
+  const det = document.getElementById('eo-detail');
+  const cont = document.getElementById('eo-detail-content');
+  det.style.display = '';
+  cont.innerHTML = '<div style="color:var(--muted);padding:1rem">⏳ Caricamento…</div>';
+  const fmt = d => { if (!d) return '—'; const p = d.slice(0,10).split('-'); return p[2]+'/'+p[1]+'/'+p[0]; };
+  const fmtTs = ts => { if (!ts) return '—'; const d = new Date(ts); return d.toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'}); };
+  try {
+    const [certs, iscrizioni] = await Promise.all([
+      sbGet('corsi_certificati', `matricola_aziendale=eq.${encodeURIComponent(r.matricola)}&order=nome_corso`),
+      sbGet('corsi_iscritti', `matricola=eq.${encodeURIComponent(r.matricola)}&select=*,corsi_sessioni(data_inizio,data_fine,corsi_tipologie(nome))&order=corsi_sessioni(data_inizio).desc`)
+    ]);
+    let html = `<div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1rem">
+      <div style="font-size:1.1rem;font-weight:800;margin-bottom:4px">${r.cognome_nome || r.matricola}</div>
+      <div style="font-size:.78rem;color:var(--muted)">Mat. ${r.matricola}${r.reparto?' · '+r.reparto:''}${r.qualifica?' · '+r.qualifica:''} · Uscito il ${fmtTs(r.data_uscita)}</div>
+    </div>`;
+    html += `<div class="eo-section-title">🏅 Certificati (${certs.length})</div>`;
+    if (certs.length) {
+      html += `<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.5rem 1rem">`;
+      html += certs.map(c =>
+        `<div class="eo-cert-row"><span class="eo-cert-nome">${c.nome_corso}</span>
+         <span class="eo-cert-date">Rilascio: ${fmt(c.data_rilascio)}</span>
+         <span class="eo-cert-date">Scadenza: ${fmt(c.data_scadenza)}</span></div>`
+      ).join('');
+      html += `</div>`;
+    } else {
+      html += `<div style="color:var(--muted);font-size:.82rem;padding:.5rem 0">Nessun certificato presente</div>`;
+    }
+    html += `<div class="eo-section-title">📅 Sessioni frequentate (${iscrizioni.length})</div>`;
+    if (iscrizioni.length) {
+      html += `<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.5rem 1rem">`;
+      html += iscrizioni.map(i => {
+        const s = i.corsi_sessioni || {};
+        const nome = s.corsi_tipologie?.nome || '—';
+        const date = s.data_inizio ? fmt(s.data_inizio) + (s.data_fine && s.data_fine !== s.data_inizio ? ' – ' + fmt(s.data_fine) : '') : '—';
+        return `<div class="eo-sess-row"><span class="eo-sess-corso">${nome}</span><span class="eo-sess-date">${date}</span></div>`;
+      }).join('');
+      html += `</div>`;
+    } else {
+      html += `<div style="color:var(--muted);font-size:.82rem;padding:.5rem 0">Nessuna sessione registrata</div>`;
+    }
+    cont.innerHTML = html;
+  } catch(e) {
+    cont.innerHTML = `<div style="color:var(--muted);padding:1rem">⚠️ ${e.message}</div>`;
+  }
+}
+
+function chiudiEoDetail() {
+  document.getElementById('eo-detail').style.display = 'none';
+  document.getElementById('eo-list').style.display = '';
+}
+// ========== FINE EX ORGANICO ==========
+
+// ========== EX ORGANICO SESSIONI (con corso/sessione collegata) ==========
+let _exOrganicoSessioni = [];
+async function loadExOrganicoSessioni() {
+  const cont = document.getElementById('eos-list');
+  if (!cont) return;
+  cont.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">⏳ Caricamento…</div>';
+  document.getElementById('eos-detail').style.display = 'none';
+  document.getElementById('eos-list').style.display = '';
+  try {
+    const tutti = await sbGet('corsi_ex_organico', 'order=cognome_nome');
+    _exOrganicoSessioni = tutti.filter(r => r.corso);
+    if (!_exOrganicoSessioni.length) {
+      cont.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted);font-size:.85rem">Nessun marittimo in ex organico sessioni</div>';
+      return;
+    }
+    const fmt = ts => { if (!ts) return '—'; const d = new Date(ts); return d.toLocaleDateString('it-IT', {day:'2-digit',month:'2-digit',year:'numeric'}); };
+    cont.innerHTML = _exOrganicoSessioni.map((r, idx) =>
+      `<div class="eo-card" onclick="apriEosDetail(${idx})">
+        <div class="eo-card-info">
+          <div class="eo-card-nome">${r.cognome_nome || r.matricola}</div>
+          <div class="eo-card-meta">Mat. ${r.matricola}${r.reparto ? ' · ' + r.reparto : ''}${r.qualifica ? ' · ' + r.qualifica : ''}</div>
+          <div class="eo-card-meta" style="color:#a32d2d;font-weight:600">📌 ${r.corso || '—'}${r.data_sessione ? ' · sessione del ' + fmt(r.data_sessione) : ''}</div>
+        </div>
+        <div class="eo-card-data">Uscito il<br><strong>${fmt(r.data_uscita)}</strong></div>
+      </div>`
+    ).join('');
+  } catch(e) {
+    cont.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted)">⚠️ ${e.message}</div>`;
+  }
+}
+
+async function apriEosDetail(idx) {
+  const r = _exOrganicoSessioni[idx];
+  if (!r) return;
+  document.getElementById('eos-list').style.display = 'none';
+  const det = document.getElementById('eos-detail');
+  const cont = document.getElementById('eos-detail-content');
+  det.style.display = '';
+  cont.innerHTML = '<div style="color:var(--muted);padding:1rem">⏳ Caricamento…</div>';
+  const fmt = d => { if (!d) return '—'; const p = d.slice(0,10).split('-'); return p[2]+'/'+p[1]+'/'+p[0]; };
+  const fmtTs = ts => { if (!ts) return '—'; const d = new Date(ts); return d.toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'}); };
+  try {
+    const [certs, iscrizioni] = await Promise.all([
+      sbGet('corsi_certificati', `matricola_aziendale=eq.${encodeURIComponent(r.matricola)}&order=nome_corso`),
+      sbGet('corsi_iscritti', `matricola=eq.${encodeURIComponent(r.matricola)}&select=*,corsi_sessioni(data_inizio,data_fine,corsi_tipologie(nome))&order=corsi_sessioni(data_inizio).desc`)
+    ]);
+    let html = `<div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1rem">
+      <div style="font-size:1.1rem;font-weight:800;margin-bottom:4px">${r.cognome_nome || r.matricola}</div>
+      <div style="font-size:.78rem;color:var(--muted)">Mat. ${r.matricola}${r.reparto?' · '+r.reparto:''}${r.qualifica?' · '+r.qualifica:''} · Uscito il ${fmtTs(r.data_uscita)}</div>
+      <div style="font-size:.8rem;color:#a32d2d;font-weight:700;margin-top:6px">📌 Corso perso: ${r.corso||'—'}${r.data_sessione?' · sessione del '+fmt(r.data_sessione):''}</div>
+    </div>`;
+    html += `<div class="eo-section-title">🏅 Certificati (${certs.length})</div>`;
+    if (certs.length) {
+      html += `<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.5rem 1rem">`;
+      html += certs.map(c =>
+        `<div class="eo-cert-row"><span class="eo-cert-nome">${c.nome_corso}</span>
+         <span class="eo-cert-date">Rilascio: ${fmt(c.data_rilascio)}</span>
+         <span class="eo-cert-date">Scadenza: ${fmt(c.data_scadenza)}</span></div>`
+      ).join('');
+      html += `</div>`;
+    } else {
+      html += `<div style="color:var(--muted);font-size:.82rem;padding:.5rem 0">Nessun certificato presente</div>`;
+    }
+    html += `<div class="eo-section-title">📅 Sessioni frequentate (${iscrizioni.length})</div>`;
+    if (iscrizioni.length) {
+      html += `<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.5rem 1rem">`;
+      html += iscrizioni.map(i => {
+        const s = i.corsi_sessioni || {};
+        const nome = s.corsi_tipologie?.nome || '—';
+        const date = s.data_inizio ? fmt(s.data_inizio) + (s.data_fine && s.data_fine !== s.data_inizio ? ' – ' + fmt(s.data_fine) : '') : '—';
+        return `<div class="eo-sess-row"><span class="eo-sess-corso">${nome}</span><span class="eo-sess-date">${date}</span></div>`;
+      }).join('');
+      html += `</div>`;
+    } else {
+      html += `<div style="color:var(--muted);font-size:.82rem;padding:.5rem 0">Nessuna sessione registrata</div>`;
+    }
+    cont.innerHTML = html;
+  } catch(e) {
+    cont.innerHTML = `<div style="color:var(--muted);padding:1rem">⚠️ ${e.message}</div>`;
+  }
+}
+
+function chiudiEosDetail() {
+  document.getElementById('eos-detail').style.display = 'none';
+  document.getElementById('eos-list').style.display = '';
+}
+// ========== FINE EX ORGANICO SESSIONI ==========
 
 </script>
 

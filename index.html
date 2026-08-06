@@ -602,7 +602,7 @@ if(new URLSearchParams(window.location.search).get('al')) {
   <button class="sb-item" onclick="showPage('statistiche',this)"><span class="sb-icon">📊</span> Statistiche</button>
   <button class="sb-item" onclick="showPage('email-riepilogo',this)"><span class="sb-icon">📬</span> Riepilogo Email</button>
   <div class="sb-section">Archivio</div>
-  <button class="sb-item" onclick="showPage('ex-organico',this)"><span class="sb-icon">👥</span> Ex Organico</button>
+  <!-- <button class="sb-item" onclick="showPage('ex-organico',this)"><span class="sb-icon">👥</span> Ex Organico</button> -->
   <button class="sb-item" onclick="showPage('ex-organico-sessioni',this)"><span class="sb-icon">🗄️</span> Ex Organico Sessioni</button>
   <div class="sb-section">Admin</div>
   <button class="sb-item admin-only" style="display:none" onclick="showPage('config-email',this)"><span class="sb-icon">⚙️</span> Config Email</button>
@@ -4687,6 +4687,17 @@ async function loadCorsiEffettuati() {
       const sollecitoRec = _ceSolleciti[mat + '||' + nomeNorm] || null;
       if (hasCert && !sollecitoRec) return;
 
+      // Calcola scadenza_attuale dal certMap per mostrare in "Inviate"
+      let scadenza_attuale = null;
+      if (certMap[mat]) {
+        for (const [csv, sessArr] of Object.entries(csvToSess)) {
+          if (sessArr.includes(nomeNorm) && certMap[mat][csv]) {
+            scadenza_attuale = certMap[mat][csv]; break;
+          }
+        }
+        if (!scadenza_attuale && certMap[mat][nomeNorm]) scadenza_attuale = certMap[mat][nomeNorm];
+      }
+
       const dip = dipMap[mat] || {};
       rows.push({
         matricola: mat,
@@ -4697,7 +4708,8 @@ async function loadCorsiEffettuati() {
         corso: nomeCorso,
         data_sessione: sess.data_fine || sess.data_inizio || '',
         sessione_id: sess.id,
-        associato: isAssociato
+        associato: isAssociato,
+        scadenza_attuale
       });
     });
 
@@ -4940,7 +4952,7 @@ function renderCorsiEffettuati() {
           reparto: r.reparto, email: r.email, corsi: []
         };
       }
-      groupsMap[r.matricola].corsi.push({ matricola: r.matricola, corso: r.corso, data_sessione: r.data_sessione, sessione_id: r.sessione_id, soll: sollOf(r) });
+      groupsMap[r.matricola].corsi.push({ matricola: r.matricola, corso: r.corso, data_sessione: r.data_sessione, sessione_id: r.sessione_id, soll: sollOf(r), scadenza_attuale: r.scadenza_attuale || null });
     });
     let groups = Object.values(groupsMap);
     groups.forEach(g => g.corsi.sort((a, b) => (a.data_sessione || '').localeCompare(b.data_sessione || '')));
@@ -4971,7 +4983,13 @@ function renderCorsiEffettuati() {
             tag = `<span class="ce-corso-sent-tag" style="color:var(--green);font-weight:700">✅ Ricevuto · ${fmtSollTs(c.soll.ricevuto)}</span>` +
               `<button class="ce-mark-btn" onclick="ceUnmarkRicevuto(${idx},${cidx})" title="Riporta in Inviate" style="margin-left:6px">↩</button>`;
           } else if (c.soll) {
-            tag = `<span class="ce-corso-sent-tag">✓ ${fmtSollTs(c.soll.il)} · ${c.soll.da || ''}</span>` +
+            const scadAnno = c.scadenza_attuale ? c.scadenza_attuale.slice(0,4) : null;
+            const scadFmt = c.scadenza_attuale ? ceFmtData(c.scadenza_attuale) : '—';
+            const scadColor = scadAnno === String(_annoRif) ? 'var(--green)' : 'var(--muted)';
+            const scadLabel = c.scadenza_attuale
+              ? `<span style="font-size:.72rem;color:${scadColor};margin-left:8px" title="Scadenza certificato attuale">📋 Scad. ${scadFmt}</span>`
+              : `<span style="font-size:.72rem;color:var(--muted);margin-left:8px">📋 Nessun cert.</span>`;
+            tag = `<span class="ce-corso-sent-tag">✓ ${fmtSollTs(c.soll.il)} · ${c.soll.da || ''}</span>${scadLabel}` +
               `<button class="ce-mark-btn" onclick="ceMarkRicevuto(${idx},${cidx})" title="Segna come ricevuto" style="margin-left:6px">✅</button>`;
           }
           return `<div class="ce-corso-line"><span>${c.corso}</span><span class="ce-corso-date">${ceFmtData(c.data_sessione)}</span>${tag}</div>`;

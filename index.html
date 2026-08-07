@@ -2423,7 +2423,7 @@ async function loadRiepilogo(){
   setConnDot('loading');
   try{
     _sessioni=await sbGet('corsi_sessioni','order=data_inizio&select=*,corsi_tipologie(nome),corsi_centri(nome)');
-    _iscrizioni=await sbGet('corsi_iscritti','order=cognome_nome&select=*');
+    _iscrizioni=await sbGet('corsi_iscritti','order=cognome_nome&select=*&limit=5000');
     const mats=[...new Set(_iscrizioni.map(i=>i.matricola_aziendale).filter(Boolean))];
     if(mats.length){
       const dips=await sbGet('Dipendenti','Matricola_Aziendale=in.('+mats.map(m=>encodeURIComponent(m)).join(',')+')'+'&select=Matricola_Aziendale,Email,reparto');
@@ -3691,7 +3691,7 @@ async function loadStatistiche(){
   try{
     if(!_certificati.length)await loadCertificati();
     if(!_sessioni.length)_sessioni=await sbGet('corsi_sessioni','order=data_inizio&select=*,corsi_tipologie(nome),corsi_centri(nome)');
-    if(!_iscrizioni.length)_iscrizioni=await sbGet('corsi_iscritti','order=cognome_nome&select=*');
+    if(!_iscrizioni.length)_iscrizioni=await sbGet('corsi_iscritti','order=cognome_nome&select=*&limit=5000');
     // Popola filtro anno grafico
     const annoSel=document.getElementById('stat-anno');
     if(annoSel&&!annoSel.options.length){
@@ -4349,7 +4349,7 @@ async function loadEmailRiepilogo(){
   setConnDot('loading');
   try{
     _sessioni=await sbGet('corsi_sessioni','order=data_inizio&select=*,corsi_tipologie(nome),corsi_centri(nome)');
-    _iscrizioni=await sbGet('corsi_iscritti','order=cognome_nome&select=*');
+    _iscrizioni=await sbGet('corsi_iscritti','order=cognome_nome&select=*&limit=5000');
     var mats=[...new Set(_iscrizioni.map(function(i){return i.matricola_aziendale;}).filter(Boolean))];
     if(mats.length){
       var dips=await sbGet('Dipendenti','Matricola_Aziendale=in.('+mats.map(function(m){return encodeURIComponent(m);}).join(',')+')'+'&select=Matricola_Aziendale,Email,reparto,Qualifica');

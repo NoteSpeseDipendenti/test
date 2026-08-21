@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{
   --bg:#f5f0eb;--surface:#ffffff;--surface2:#ede8e2;--border:#ddd7cf;
@@ -951,8 +952,7 @@ if(new URLSearchParams(window.location.search).get('al')) {
     </div>
     <div class="f-row" style="margin-bottom:1rem;position:relative;max-width:480px">
       <div class="search-tooltip-wrap" style="width:100%">
-        <input class="f-inp" id="np-search" type="text" placeholder="🔍 Cerca nome o matricola…" oninput="onNpSearch(this.value)" onkeydown="if(event.key==='Escape')chiudiAcNp()" style="width:100%" autocomplete="off">
-        <div id="ac-np" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid var(--border);border-radius:0 0 10px 10px;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,.1);max-height:220px;overflow-y:auto"></div>
+        <input class="f-inp" id="np-search" type="text" placeholder="🔍 Cerca nome o matricola…" oninput="onNpSearch(this.value);filtraNpList(this.value)" style="width:100%" autocomplete="off"><div id="ac-np" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:200;max-height:220px;overflow-y:auto"></div>
       </div>
     </div>
     <div style="font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Note attive</div>
@@ -1057,6 +1057,8 @@ if(new URLSearchParams(window.location.search).get('al')) {
       <div><div class="page-title">📊 Statistiche</div><div class="page-sub">Analisi corsi e certificati marittimi</div></div>
       <button class="btn btn-primary" onclick="loadStatistiche()">↻ Aggiorna</button>
     </div>
+    <!-- Riepilogo scadenze 31/12 -->
+    <div id="stat-riepilogo-31dic" style="margin-bottom:1.4rem"></div>
     <!-- Filtro anno grafico -->
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;flex-wrap:wrap;">
       <select class="stat-sel" id="stat-anno" onchange="renderStatGrafico()"></select>
@@ -2062,7 +2064,7 @@ async function loadSessioni(){
   setConnDot('loading');
   try{
     _sessioni=await sbGet('corsi_sessioni','order=data_inizio&select=*,corsi_tipologie(nome),corsi_centri(nome)');
-    _iscrizioni=await sbGet('corsi_iscritti','select=id,sessione_id');
+    _iscrizioni=await sbGetAll('corsi_iscritti','select=id,sessione_id');
     renderSessioni();renderPlPanel();setConnDot('on');
   }catch(e){setConnDot('off');document.getElementById('sess-tbody').innerHTML=`<tr class="empty-row"><td colspan="5">⚠️ ${e.message}</td></tr>`;toast('Errore: '+e.message,'error');}
 }
@@ -2423,7 +2425,7 @@ async function loadRiepilogo(){
   setConnDot('loading');
   try{
     _sessioni=await sbGet('corsi_sessioni','order=data_inizio&select=*,corsi_tipologie(nome),corsi_centri(nome)');
-    _iscrizioni=await sbGet('corsi_iscritti','order=cognome_nome&select=*&limit=5000');
+    _iscrizioni=await sbGetAll('corsi_iscritti','order=cognome_nome&select=*');
     const mats=[...new Set(_iscrizioni.map(i=>i.matricola_aziendale).filter(Boolean))];
     if(mats.length){
       const dips=await sbGet('Dipendenti','Matricola_Aziendale=in.('+mats.map(m=>encodeURIComponent(m)).join(',')+')'+'&select=Matricola_Aziendale,Email,reparto');
@@ -2458,7 +2460,7 @@ function onRiepilogoSearch(val){
   chiudiAcRiepilogo();
   onRiepilogoFilter();
   if(!val||val.length<2)return;
-  if(/^\d+$/.test(val))return;
+  if(/^\d+$/.test(val))return; // Solo numeri: filtra per matricola ma non aprire autocomplete
   _acRiepilogoTimer=setTimeout(async()=>{
     try{
       const res=await sbGet('Dipendenti',`or=(Cognome.ilike.*${encodeURIComponent(val)}*,Nome.ilike.*${encodeURIComponent(val)}*)&select=Matricola_Aziendale,Cognome,Nome&limit=8`);
@@ -2472,11 +2474,16 @@ function onRiepilogoSearch(val){
   },300);
 }
 function selAcRiepilogo(nome,mat){
-  document.getElementById('f-q').value=nome;
+  document.getElementById('f-q').value=mat;
   chiudiAcRiepilogo();
   onRiepilogoFilter();
 }
 function onRiepilogoFilter(){
+  const fQ=document.getElementById('f-q').value.toLowerCase().trim();
+  if(fQ){
+    const trovati=_iscrizioni.filter(i=>i.cognome_nome?.toLowerCase().includes(fQ)||String(i.matricola_aziendale||'').includes(fQ));
+    console.log(`[DEBUG] fQ="${fQ}" → _iscrizioni.length=${_iscrizioni.length}, trovati=${trovati.length}`, trovati.slice(0,3));
+  }
   renderRiepilogoSess();
 }
 function renderPillsRiepilogo(){
@@ -2637,7 +2644,7 @@ async function loadScadenze12(){
     [_certificati,_certIscrizioni,_certSessioni,_nomiMapping,_notePersonale]=await Promise.all([
       sbGetAll('corsi_certificati','order=cognome_nome,nome_corso'),
       sbGetAll('corsi_iscritti','order=created_at.desc'),
-      sbGetAll('corsi_sessioni','select=id,nota,data_inizio&order=data_inizio'),
+      sbGetAll('corsi_sessioni','select=id,nota,data_inizio,data_fine,email_inviata_at,forza_attiva,corso_id,corsi_tipologie(nome)&order=data_inizio'),
       sbGetAll('corsi_nome_mapping','order=nome_csv,nome_sessione'),
       sbGetAll('corsi_note_personale','order=updated_at.desc')
     ]);
@@ -2653,7 +2660,7 @@ async function loadCertificati(){
     [_certificati,_certIscrizioni,_certSessioni,_notePersonale]=await Promise.all([
       sbGetAll('corsi_certificati','order=cognome_nome,nome_corso'),
       sbGet('corsi_iscritti','select=matricola_aziendale,sessione_id'),
-      sbGet('corsi_sessioni','select=id,data_inizio,nota&order=data_inizio'),
+      sbGet('corsi_sessioni','select=id,data_inizio,nota,corso_id,corsi_tipologie(nome)&order=data_inizio'),
       sbGetAll('corsi_note_personale','order=updated_at.desc')
     ]);
     fillCorsoSelects();
@@ -3366,7 +3373,7 @@ async function invioEmailImat(){
 async function loadAdmin(){
   try{
     [_corsi,_centri,_navi,_sessioni,_nomiSessioni]=await Promise.all([sbGet('corsi_tipologie','order=nome').catch(()=>[]),sbGet('corsi_centri','order=nome').catch(()=>[]),sbGet('Navi','order=Societa,Nome_Nave').catch(()=>[]),sbGet('corsi_sessioni','order=data_inizio&select=*,corsi_tipologie(nome),corsi_centri(nome)').catch(()=>[]),sbGet('corsi_nomi_sessioni','order=nome').catch(()=>[])]);
-    _iscrizioni=await sbGet('corsi_iscritti','select=id,sessione_id').catch(()=>[]);
+    _iscrizioni=await sbGetAll('corsi_iscritti','select=id,sessione_id').catch(()=>[]);
     fillCentroSelects();fillCorsoSelects();buildNaveSelect();
     renderAdminSessioni();renderAdminCorsi();renderAdminCentri();renderAdminNavi();renderAdminPin();renderAdminNomiSessioni();
     await caricaEmailDest();await renderAdminUtenti();
@@ -3691,7 +3698,7 @@ async function loadStatistiche(){
   try{
     if(!_certificati.length)await loadCertificati();
     if(!_sessioni.length)_sessioni=await sbGet('corsi_sessioni','order=data_inizio&select=*,corsi_tipologie(nome),corsi_centri(nome)');
-    if(!_iscrizioni.length)_iscrizioni=await sbGet('corsi_iscritti','order=cognome_nome&select=*&limit=5000');
+    if(!_iscrizioni.length)_iscrizioni=await sbGetAll('corsi_iscritti','order=cognome_nome&select=*');
     // Popola filtro anno grafico
     const annoSel=document.getElementById('stat-anno');
     if(annoSel&&!annoSel.options.length){
@@ -3733,8 +3740,388 @@ async function loadStatistiche(){
     }
     renderStatGrafico();
     renderStatBlocchi();
+    renderStatRiepilogo31dic();
   }catch(e){console.error(e);toast('Errore statistiche: '+e.message,'error');}
 }
+function stampaPdfRiepilogo31dic(){
+  var el=document.getElementById('stat-riepilogo-31dic');
+  if(!el){toast('Blocco riepilogo non trovato','error');return;}
+  // Nasconde temporaneamente il pulsante PDF dal div prima dello screenshot
+  var btn=el.querySelector('button[onclick="stampaPdfRiepilogo31dic()"]');
+  if(btn)btn.style.visibility='hidden';
+  toast('Generazione PDF in corso…');
+  html2canvas(el,{scale:2,useCORS:true,backgroundColor:'#f5f0eb'}).then(function(canvas){
+    if(btn)btn.style.visibility='';
+    var imgData=canvas.toDataURL('image/png');
+    var {jsPDF}=window.jspdf;
+    var pw=297,ph=210; // A4 landscape mm
+    var cw=canvas.width,ch=canvas.height;
+    var ratio=cw/ch;
+    var imgW=pw-20,imgH=imgW/ratio;
+    // Se troppo alto, ridimensiona
+    if(imgH>ph-20){imgH=ph-20;imgW=imgH*ratio;}
+    var doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+    var x=(pw-imgW)/2,y=(ph-imgH)/2;
+    doc.addImage(imgData,'PNG',x,y,imgW,imgH);
+    doc.save('riepilogo_31dic_2026.pdf');
+    toast('PDF esportato ✓');
+  }).catch(function(e){
+    if(btn)btn.style.visibility='';
+    toast('Errore PDF: '+e.message,'error');
+  });
+}
+
+function renderStatRiepilogo31dic(){
+  const cont=document.getElementById('stat-riepilogo-31dic');
+  if(!cont)return;
+  const SCAD='2026-12-31';
+  const oggi=new Date().toISOString().slice(0,10);
+  const REP=['Coperta','Macchina','Camera','Cucina'];
+  const inScadenza=_certificati.filter(function(c){
+    if((c.Stato||c.stato||'').toLowerCase()!=='italiani')return false;
+    if(!c.data_scadenza)return false;
+    if(c.data_scadenza.slice(0,10)>SCAD)return false;
+    // Stessa logica pagina Certificati: 'Valido' = non scaduto e non in scadenza entro 60gg
+    return statoScad(c.data_scadenza).txt==='Valido';
+  });
+  const totScad=inScadenza.length;
+  function nomiSessionePerCorso(corso){
+    var mapped=(_nomiMapping||[]).filter(function(m){return (m.nome_csv||'').toLowerCase()===corso.toLowerCase();}).map(function(m){return (m.nome_sessione||'').toLowerCase();});
+    return mapped.length?mapped:[(corso||'').toLowerCase()];
+  }
+
+  // Conta iscritti per sessione (da _certIscrizioni)
+  const iscPerSess={};
+  (_certIscrizioni||[]).forEach(function(i){
+    if(!i.sessione_id)return;
+    iscPerSess[i.sessione_id]=(iscPerSess[i.sessione_id]||0)+1;
+  });
+
+  // --- GRUPPO A: prenotati ---
+  // Sessioni future (isPassata=false) con almeno 1 iscritto — stessa logica Admin
+  const sessioniFuture=(_certSessioni||[]).filter(function(s){
+    return !isPassata(s.data_fine||s.data_inizio,s.forza_attiva)&&(iscPerSess[s.id]||0)>0;
+  });
+  const sessIdFuture=new Set(sessioniFuture.map(function(s){return s.id;}));
+  function chiaviFunzione(mat, nomeTip, notaSess){
+    // Aggiunge chiave con nome tipologia, con nota, e senza prefisso "refresh "
+    var keys=[];
+    if(nomeTip){
+      keys.push(mat+'|'+nomeTip);
+      var senzaRefresh=nomeTip.replace(/^refresh\s+/,'');
+      if(senzaRefresh!==nomeTip)keys.push(mat+'|'+senzaRefresh);
+    }
+    if(notaSess){
+      keys.push(mat+'|'+notaSess);
+      var senzaRefreshNota=notaSess.replace(/^refresh\s+/,'');
+      if(senzaRefreshNota!==notaSess)keys.push(mat+'|'+senzaRefreshNota);
+    }
+    return keys;
+  }
+  const iscFutureSet=new Set();
+  (_certIscrizioni||[]).forEach(function(i){
+    if(!sessIdFuture.has(i.sessione_id))return;
+    var s=sessioniFuture.find(function(x){return x.id===i.sessione_id;});
+    if(!s)return;
+    var mat=(i.matricola_aziendale||'');
+    var nomeTip=(s.corsi_tipologie&&s.corsi_tipologie.nome||'').toLowerCase();
+    var notaSess=(s.nota||'').toLowerCase();
+    chiaviFunzione(mat,nomeTip,notaSess).forEach(function(k){iscFutureSet.add(k);});
+  });
+
+  // --- GRUPPO B: corso già fatto (sessione passata con iscritti), certificato non ancora caricato ---
+  // Sessioni passate (isPassata=true) con almeno 1 iscritto
+  const sessioniPassate=(_certSessioni||[]).filter(function(s){
+    return isPassata(s.data_fine||s.data_inizio,s.forza_attiva)&&(iscPerSess[s.id]||0)>0;
+  });
+  const sessIdPassate=new Set(sessioniPassate.map(function(s){return s.id;}));
+  // Mappa certificati esistenti: "matricola|nome_corso" -> data_rilascio max
+  const certMaxRilascio={};
+  (_certificati||[]).forEach(function(c){
+    if(!c.matricola_aziendale||!c.nome_corso)return;
+    var k=(c.matricola_aziendale||'')+'|'+(c.nome_corso||'').toLowerCase();
+    var dr=c.data_rilascio||'';
+    if(!certMaxRilascio[k]||dr>certMaxRilascio[k])certMaxRilascio[k]=dr;
+  });
+  // Set "in attesa cert": iscritto a sessione passata, senza nuovo cert rilasciato dopo la fine sessione
+  const iscAttesaSet=new Set();
+  (_certIscrizioni||[]).forEach(function(i){
+    if(!sessIdPassate.has(i.sessione_id))return;
+    var s=sessioniPassate.find(function(x){return x.id===i.sessione_id;});
+    if(!s)return;
+    var mat=(i.matricola_aziendale||'');
+    var dataFine=(s.data_fine||s.data_inizio||'').slice(0,10);
+    var nomeTip=(s.corsi_tipologie&&s.corsi_tipologie.nome||'').toLowerCase();
+    var notaSess=(s.nota||'').toLowerCase();
+    var chiavi=chiaviFunzione(mat,nomeTip,notaSess);
+    // Ha già il nuovo certificato caricato dopo la fine del corso?
+    var haNewCert=chiavi.some(function(k){return certMaxRilascio[k]&&certMaxRilascio[k]>=dataFine;});
+    if(!haNewCert){
+      chiaviFunzione(mat,nomeTip,notaSess).forEach(function(k){iscAttesaSet.add(k);});
+    }
+  });
+
+  // [DEBUG] conteggi per diagnosi
+
+  var copertiPrenotati=0, copertiAttesa=0;
+  const gridCop={};REP.forEach(function(r){gridCop[r]={moby:0,cin:0};});
+  const daConvocare=inScadenza.filter(function(c){
+    var nomiOk=nomiSessionePerCorso(c.nome_corso||'');
+    var mat=(c.matricola_aziendale||'');
+    // Gruppo A: ha sessione futura prenotata
+    var isPrenotato=nomiOk.some(function(n){return iscFutureSet.has(mat+'|'+n);});
+    // Gruppo B: ha già fatto il corso, certificato in attesa
+    var isAttesa=nomiOk.some(function(n){return iscAttesaSet.has(mat+'|'+n);});
+    var coperto=isPrenotato||isAttesa;
+    if(coperto){
+      var r=REP.find(function(x){return x.toLowerCase()===(c.reparto||'').toLowerCase();});
+      var comp=(c.compagnia||'').toLowerCase();
+      if(isPrenotato)copertiPrenotati++;
+      else if(isAttesa)copertiAttesa++;
+      if(r&&(comp==='moby'||comp==='cin'))gridCop[r][comp]++;
+    }
+    return !coperto;
+  });
+  var coperti=copertiPrenotati+copertiAttesa;
+  const totDaConv=daConvocare.length;
+  function buildGrid(arr){
+    var g={};REP.forEach(function(r){g[r]={moby:0,cin:0};});
+    arr.forEach(function(c){
+      var r=REP.find(function(x){return x.toLowerCase()===(c.reparto||'').toLowerCase();});
+      var comp=(c.compagnia||'').toLowerCase();
+      if(r&&(comp==='moby'||comp==='cin'))g[r][comp]++;
+    });
+    return g;
+  }
+  const gridScad=buildGrid(inScadenza);
+  const gridConv=buildGrid(daConvocare);
+  const perCorso={};
+  daConvocare.forEach(function(c){
+    var k=c.nome_corso||'—';
+    if(!perCorso[k]){perCorso[k]={tot:0,grid:{}};REP.forEach(function(r){perCorso[k].grid[r]={moby:0,cin:0};});}
+    perCorso[k].tot++;
+    var r=REP.find(function(x){return x.toLowerCase()===(c.reparto||'').toLowerCase();});
+    var comp=(c.compagnia||'').toLowerCase();
+    if(r&&(comp==='moby'||comp==='cin'))perCorso[k].grid[r][comp]++;
+  });
+  const corsiOrd=Object.entries(perCorso).sort(function(a,b){return b[1].tot-a[1].tot;});
+  const CORSO_COLORS=['#378ADD','#1D9E75','#D85A30','#7F77DD','#BA7517','#993556'];
+  function totRiga(g){return {moby:REP.reduce(function(s,r){return s+g[r].moby;},0),cin:REP.reduce(function(s,r){return s+g[r].cin;},0)};}
+  function tableHeader(){
+    return '<tr style="border-bottom:0.5px solid var(--border-strong)">'
+      +'<th style="padding:4px 8px;font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left">Reparto</th>'
+      +'<th style="padding:4px 8px;font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--amm);text-align:right">Moby</th>'
+      +'<th style="padding:4px 8px;font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right">CIN</th>'
+      +'<th style="padding:4px 8px;font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right">Tot.</th>'
+      +'</tr>';
+  }
+  function rigaRep(label,g,bold){
+    var moby=g.moby,cin=g.cin,tot=moby+cin;
+    return '<tr style="border-bottom:0.5px solid var(--border)">'
+      +'<td style="padding:5px 8px;font-size:.78rem;color:'+(bold?'var(--text)':'var(--muted)')+(bold?';font-weight:500':'')+'">'+label+'</td>'
+      +'<td style="padding:5px 8px;font-size:.78rem;text-align:right;color:var(--amm);font-weight:500">'+moby+'</td>'
+      +'<td style="padding:5px 8px;font-size:.78rem;text-align:right;color:var(--muted)">'+cin+'</td>'
+      +'<td style="padding:5px 8px;font-size:.78rem;text-align:right;font-weight:'+(bold?'500':'400')+';color:var(--text)">'+tot+'</td>'
+      +'</tr>';
+  }
+  function buildTable(g){
+    var tg=totRiga(g);
+    return '<table style="width:100%;border-collapse:collapse">'+tableHeader()+REP.map(function(r){return rigaRep(r,g[r],false);}).join('')+rigaRep('Totale',tg,true)+'</table>';
+  }
+  function kpi(lbl,val,sub,col){
+    return '<div style="background:var(--surface2);border-radius:var(--radius);padding:12px 14px">'
+      +'<div style="font-size:.7rem;color:var(--muted);margin-bottom:4px">'+lbl+'</div>'
+      +'<div style="font-size:1.4rem;font-weight:500;line-height:1;color:'+(col||'var(--text)')+'">'+val.toLocaleString('it-IT')+'</div>'
+      +'<div style="font-size:.68rem;color:var(--muted);margin-top:3px">'+sub+'</div>'
+      +'</div>';
+  }
+  var html='<div style="display:flex;align-items:center;gap:8px;margin-bottom:1rem">'
+    +'<div style="flex:1;background:var(--blue-l,#e8f0fe);border:0.5px solid var(--blue,#4a7bc8);border-radius:var(--radius);padding:8px 12px;font-size:.73rem;color:var(--blue,#4a7bc8)">'
+    +'<i class="ti ti-calendar-due" style="margin-right:4px" aria-hidden="true"></i>'
+    +'Riepilogo scadenze al <strong>31/12/2026</strong> — solo marittimi italiani con certificati in scadenza</div>'
+    +'<button onclick="stampaPdfRiepilogo31dic()" title="Esporta PDF" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:7px 12px;border:none;border-radius:var(--radius);background:#6b7280;cursor:pointer;font-size:.75rem;color:#fff;font-family:inherit;font-weight:600">'
+    +'<i class="ti ti-file-type-pdf" style="font-size:16px" aria-hidden="true"></i> PDF</button>'    +'<button id="btn-salva-snap" onclick="salvaSnapshot31dic()" title="Salva snapshot storico" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:7px 14px;border:none;border-radius:var(--radius);background:#c85050;cursor:pointer;font-size:.75rem;color:#fff;font-family:inherit;font-weight:600">'    +'<i class="ti ti-device-floppy" style="font-size:16px" aria-hidden="true"></i> Salva snapshot</button>'    +'</div>';
+  html+='<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1rem">';
+  var totItaliani=_certificati.filter(function(c){return (c.Stato||c.stato||'').toLowerCase()==='italiani'&&c.data_scadenza;}).length;
+  html+=kpi('Cert. totali',_certificati.length,'italiani + stranieri');
+  html+=kpi('Di cui italiani',totItaliani,'sul totale');
+  html+=kpi('Italiani validi in scadenza entro 31/12',totScad,'su '+totItaliani+' italiani totali','var(--amm)');
+  html+=kpi('Già coperti',coperti,copertiPrenotati+' prenotati · '+copertiAttesa+' in attesa cert.','var(--orange,#e67e22)');
+  html+=kpi('Da convocare effettivi',totDaConv,totScad+' − '+coperti+' coperti','var(--green,#2e7d32)');
+  html+='</div>';
+  // --- Sezione storico snapshot ---
+  html+='<div id="storico-31dic-wrap" style="margin-bottom:1rem"></div>';
+  // Esponi i KPI come globali per il salvataggio
+  _snap31dic={cert_totali:_certificati.length,italiani:totItaliani,in_scadenza:totScad,gia_coperti:coperti,da_convocare:totDaConv};
+
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1rem">';
+  html+='<div style="background:var(--surface);border:0.5px solid var(--border);border-radius:12px;padding:14px 16px">'
+    +'<div style="font-size:.78rem;font-weight:500;color:var(--text);margin-bottom:10px">In scadenza per reparto</div>'
+    +buildTable(gridScad)+'</div>';
+  html+='<div style="background:var(--surface);border:0.5px solid var(--border);border-radius:12px;padding:14px 16px">'
+    +'<div style="font-size:.78rem;font-weight:500;color:var(--text);margin-bottom:10px">Già coperti (stesso corso programmato)</div>'
+    +buildTable(gridCop)
+    +'<div style="height:.5px;background:var(--border);margin:10px 0"></div>'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px">'
+    +'<span style="font-size:.8rem;font-weight:500;color:var(--text)">Da convocare</span>'
+    +'<span style="font-size:1.1rem;font-weight:500;color:var(--green,#2e7d32)">'+totDaConv.toLocaleString('it-IT')+'</span>'
+    +'</div></div>';
+  html+='</div>';
+  // --- Tabella corsi prioritari: corsi=colonne, reparti=righe ---
+  html+='<div style="background:var(--surface);border:0.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:1rem">'
+    +'<div style="font-size:.78rem;font-weight:500;color:var(--text);margin-bottom:12px">Corsi prioritari — da convocare per reparto</div>';
+  var thStyle='padding:4px 7px;font-size:.63rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;text-align:right;white-space:nowrap';
+  var tdStyle='padding:4px 7px;font-size:.75rem;text-align:right';
+  var tdRepStyle='padding:4px 8px;font-size:.75rem;color:var(--text)';
+  var borderL='border-left:0.5px solid var(--border)';
+  // intestazione riga 1: nome corso con dot e totale
+  var hRow1='<tr style="border-bottom:0.5px solid var(--border)">'
+    +'<th style="'+thStyle+';text-align:left;color:var(--muted)">Reparto</th>';
+  corsiOrd.forEach(function(entry,ci){
+    var color=CORSO_COLORS[ci%CORSO_COLORS.length];
+    // Spezza il nome corso alla prima parola se > 1 parola
+    var parole=entry[0].split(' ');
+    var nomeHtml;
+    if(parole.length>1){
+      nomeHtml=parole[0]+'<br>'+parole.slice(1).join(' ')+' <span style="color:var(--muted);font-weight:400">('+entry[1].tot+')</span>';
+    } else {
+      nomeHtml=entry[0]+' <span style="color:var(--muted);font-weight:400">('+entry[1].tot+')</span>';
+    }
+    hRow1+='<th colspan="2" style="'+thStyle+';text-align:center;'+borderL+';color:var(--text);line-height:1.3">'
+      +'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:'+color+';margin-right:4px;vertical-align:middle"></span>'
+      +nomeHtml+'</th>';
+  });
+  hRow1+='</tr>';
+  // intestazione riga 2: Moby / CIN per ogni corso
+  var hRow2='<tr style="border-bottom:0.5px solid var(--border-strong)">'
+    +'<th style="'+thStyle+';text-align:left"></th>';
+  corsiOrd.forEach(function(){
+    hRow2+='<th style="'+thStyle+';color:var(--amm);'+borderL+'">Moby</th>'
+      +'<th style="'+thStyle+';color:var(--muted)">CIN</th>';
+  });
+  hRow2+='</tr>';
+  // righe reparti
+  var bodyRows=REP.map(function(rep){
+    var row='<tr style="border-bottom:0.5px solid var(--border)">'
+      +'<td style="'+tdRepStyle+'">'+rep+'</td>';
+    corsiOrd.forEach(function(entry){
+      var g=entry[1].grid[rep]||{moby:0,cin:0};
+      row+='<td style="'+tdStyle+';color:var(--amm);font-weight:500;'+borderL+'">'+g.moby+'</td>'
+        +'<td style="'+tdStyle+';color:var(--muted)">'+g.cin+'</td>';
+    });
+    row+='</tr>';
+    return row;
+  }).join('');
+  // riga totale
+  var totRow='<tr style="border-top:0.5px solid var(--border-strong)">'
+    +'<td style="'+tdRepStyle+';font-weight:500">Totale</td>';
+  corsiOrd.forEach(function(entry){
+    var tg=totRiga(entry[1].grid);
+    totRow+='<td style="'+tdStyle+';color:var(--amm);font-weight:500;'+borderL+'">'+tg.moby+'</td>'
+      +'<td style="'+tdStyle+';color:var(--muted);font-weight:500">'+tg.cin+'</td>';
+  });
+  totRow+='</tr>';
+  var nCorsi=corsiOrd.length;
+  var colW=Math.floor(56/nCorsi)+'%';
+  html+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;table-layout:fixed">'
+    +'<colgroup><col style="width:70px">'+corsiOrd.map(function(){return '<col style="width:'+colW+'"><col style="width:'+colW+'">';}).join('')+'</colgroup>'
+    +hRow1+hRow2+bodyRows+totRow
+    +'</table></div>';
+  html+='</div>';
+  cont.innerHTML=html;
+  renderStorico31dic();
+}
+
+var _snap31dic={};
+
+async function salvaSnapshot31dic(){
+  var btn=document.getElementById('btn-salva-snap');
+  if(!_snap31dic||!_snap31dic.cert_totali){toast('Aggiorna prima il riepilogo','error');return;}
+  if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader" style="font-size:14px"></i> Salvataggio...';}
+  try{
+    await sbPost('corsi_stat_storico',{
+      cert_totali:_snap31dic.cert_totali,
+      italiani:_snap31dic.italiani,
+      in_scadenza:_snap31dic.in_scadenza,
+      gia_coperti:_snap31dic.gia_coperti,
+      da_convocare:_snap31dic.da_convocare
+    });
+    toast('✅ Snapshot salvato');
+    renderStorico31dic();
+  }catch(e){
+    toast('Errore salvataggio: '+e.message,'error');
+  }finally{
+    if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-device-floppy" style="font-size:16px"></i> Salva snapshot';}
+  }
+}
+
+async function renderStorico31dic(){
+  var wrap=document.getElementById('storico-31dic-wrap');
+  if(!wrap)return;
+  var rows=[];
+  try{
+    rows=await sbGet('corsi_stat_storico','order=created_at.desc&limit=20');
+  }catch(e){
+    wrap.innerHTML='<div style="font-size:.75rem;color:var(--muted);padding:8px 0">Storico non disponibile ('+e.message+')</div>';
+    return;
+  }
+  if(!rows||!rows.length){
+    wrap.innerHTML='<div style="font-size:.75rem;color:var(--muted);padding:8px 0;font-style:italic">Nessuno snapshot salvato.</div>';
+    return;
+  }
+  function fmtDate(iso){
+    if(!iso)return '—';
+    var d=new Date(iso);
+    var dd=String(d.getDate()).padStart(2,'0');
+    var mm=String(d.getMonth()+1).padStart(2,'0');
+    var yyyy=d.getFullYear();
+    var hh=String(d.getHours()).padStart(2,'0');
+    var mi=String(d.getMinutes()).padStart(2,'0');
+    return dd+'/'+mm+'/'+yyyy+' '+hh+':'+mi;
+  }
+  var thS='padding:5px 10px;font-size:.63rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right;white-space:nowrap';
+  var tdS='padding:5px 10px;font-size:.78rem;text-align:right';
+  var html='<details style="background:var(--surface);border:0.5px solid #c85050;border-radius:12px;overflow:hidden">'
+    +'<summary style="padding:10px 14px;cursor:pointer;font-size:.78rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;list-style:none">'
+    +'<i class="ti ti-history" style="font-size:16px;color:#c85050" aria-hidden="true"></i>'
+    +'Storico snapshot <span style="margin-left:4px;font-size:.7rem;font-weight:400;color:var(--muted)">('+rows.length+' salvatag'+(rows.length===1?'gio':'gi')+')</span>'
+    +'<i class="ti ti-chevron-down" style="font-size:14px;color:var(--muted);margin-left:auto" aria-hidden="true"></i>'
+    +'</summary>'
+    +'<div style="overflow-x:auto;border-top:0.5px solid var(--border)">'
+    +'<table style="width:100%;border-collapse:collapse">'
+    +'<thead><tr style="border-bottom:0.5px solid var(--border)">'
+    +'<th style="'+thS+';text-align:left">Data snapshot</th>'
+    +'<th style="'+thS+'">Cert. totali</th>'
+    +'<th style="'+thS+'">Italiani</th>'
+    +'<th style="'+thS+';color:var(--amm)">In scadenza</th>'
+    +'<th style="'+thS+';color:var(--orange,#e67e22)">Già coperti</th>'
+    +'<th style="'+thS+';color:var(--green,#2e7d32)">Da convocare</th>'
+    +'<th style="'+thS+'"></th>'
+    +'</tr></thead><tbody>';
+  rows.forEach(function(r){
+    html+='<tr style="border-bottom:0.5px solid var(--border)">'
+      +'<td style="padding:5px 10px;font-size:.75rem"><span style="background:var(--accent-l,#faf0e6);color:var(--accent-d,#a06030);border-radius:4px;padding:2px 8px;font-size:.7rem;font-weight:500">'+fmtDate(r.created_at)+'</span></td>'
+      +'<td style="'+tdS+'">'+((r.cert_totali||0).toLocaleString('it-IT'))+'</td>'
+      +'<td style="'+tdS+'">'+((r.italiani||0).toLocaleString('it-IT'))+'</td>'
+      +'<td style="'+tdS+';color:var(--amm);font-weight:500">'+((r.in_scadenza||0).toLocaleString('it-IT'))+'</td>'
+      +'<td style="'+tdS+';color:var(--orange,#e67e22);font-weight:500">'+((r.gia_coperti||0).toLocaleString('it-IT'))+'</td>'
+      +'<td style="'+tdS+';color:var(--green,#2e7d32);font-weight:500">'+((r.da_convocare||0).toLocaleString('it-IT'))+'</td>'
+      +'<td style="'+tdS+'"><button onclick="eliminaSnapshot31dic('+r.id+')" title="Elimina snapshot" style="background:none;border:none;cursor:pointer;color:var(--muted);padding:2px 4px"><i class="ti ti-trash" style="font-size:14px" aria-hidden="true"></i></button></td>'
+      +'</tr>';
+  });
+  html+='</tbody></table></div></details>';
+  wrap.innerHTML=html;
+}
+
+async function eliminaSnapshot31dic(id){
+  if(!confirm('Eliminare questo snapshot?'))return;
+  try{
+    await sbDelete('corsi_stat_storico',id);
+    toast('Snapshot eliminato');
+    renderStorico31dic();
+  }catch(e){toast('Errore: '+e.message,'error');}
+}
+
 function renderStatGrafico(){
   const annoSel=document.getElementById('stat-anno');
   const anno=annoSel&&annoSel.value?annoSel.value:new Date().getFullYear().toString();
@@ -4254,22 +4641,45 @@ let _npSelDip=null;
 let _npAcTimer=null;
 async function loadNotePersonale(){
   try{
-    _notePersonale=await sbGetAll('corsi_note_personale','order=updated_at.desc');
+    _notePersonale=await sbGetAll('corsi_note_personale','order=cognome_nome.asc');
     renderNpList();
   }catch(e){toast('Errore caricamento note: '+e.message,'error');}
+  document.removeEventListener('click',_npClickOutside);
+  document.addEventListener('click',_npClickOutside);
+}
+function _npClickOutside(e){
+  var wrap=document.querySelector('.search-tooltip-wrap');
+  if(wrap&&!wrap.contains(e.target))chiudiAcNp();
+}
+async function eliminaNotaPersonaleById(id,nome){
+  if(!confirm('Eliminare la nota per '+nome+'?'))return;
+  try{
+    await sbDelete('corsi_note_personale',id);
+    toast('✅ Nota eliminata');
+    _notePersonale=_notePersonale.filter(function(n){return n.id!==id;});
+    renderNpList();
+  }catch(e){toast('Errore: '+e.message,'error');}
 }
 function renderNpList(){
   const cont=document.getElementById('np-list');
-  if(!_notePersonale.length){cont.innerHTML='<div class="empty"><div class="empty-ico">🗒️</div><p>Nessuna nota personale inserita.</p></div>';return;}
-  cont.innerHTML=_notePersonale.map(function(n){
+  const q=(document.getElementById('np-search').value||'').toLowerCase().trim();
+  const sorted=[..._notePersonale].sort(function(a,b){return (a.cognome_nome||'').localeCompare(b.cognome_nome||'','it');});
+  const filtrati=q?sorted.filter(function(n){return (n.cognome_nome||'').toLowerCase().includes(q)||(n.matricola_aziendale||'').toLowerCase().includes(q)||(n.qualifica||'').toLowerCase().includes(q);}):sorted;
+  if(!filtrati.length){
+    cont.innerHTML='<div class="empty"><div class="empty-ico">🗒️</div><p>'+(q?'Nessuna nota trovata per "'+q+'".':'Nessuna nota personale inserita.')+'</p></div>';
+    return;
+  }
+  cont.innerHTML=filtrati.map(function(n){
     return '<div class="riepilogo-item" style="cursor:pointer" onclick="apriNpModalEsistente('+n.id+')">'
       +'<div class="riepilogo-row">'
       +'<div style="align-self:center"><div class="rc-nome">'+(n.cognome_nome||'—')+'</div><div class="rc-sub">'+(n.qualifica||'')+(n.qualifica&&n.matricola_aziendale?' · ':'')+(n.matricola_aziendale?'<span style="font-family:\'DM Mono\',monospace">'+n.matricola_aziendale+'</span>':'')+'</div></div>'
-      +'<div class="rc-cell-corso" style="grid-column:span 2">'+(n.nota||'—').replace(/</g,'&lt;')+'</div>'
+      +'<div class="rc-cell-corso" style="grid-column:span 2" onclick="event.stopPropagation();apriNpModalEsistente('+n.id+')">'+(n.nota||'—').replace(/</g,'&lt;')+'</div>'
       +'<div class="rc-cell" style="font-size:.7rem;color:var(--muted);text-align:right">'+(n.updated_at?new Date(n.updated_at).toLocaleDateString('it-IT'):'')+'</div>'
+      +'<div class="rc-cell" style="text-align:right;padding-left:4px" onclick="event.stopPropagation()"><button onclick="eliminaNotaPersonaleById('+n.id+',\''+( n.cognome_nome||'').replace(/'/g,"\\'")+'\')" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:1rem;padding:3px 6px;border-radius:6px" title="Elimina nota">🗑</button></div>'
       +'</div></div>';
   }).join('');
 }
+function filtraNpList(val){renderNpList();}
 function chiudiAcNp(){const ac=document.getElementById('ac-np');if(ac)ac.style.display='none';}
 function onNpSearch(val){
   clearTimeout(_npAcTimer);
@@ -4349,7 +4759,7 @@ async function loadEmailRiepilogo(){
   setConnDot('loading');
   try{
     _sessioni=await sbGet('corsi_sessioni','order=data_inizio&select=*,corsi_tipologie(nome),corsi_centri(nome)');
-    _iscrizioni=await sbGet('corsi_iscritti','order=cognome_nome&select=*&limit=5000');
+    _iscrizioni=await sbGetAll('corsi_iscritti','order=cognome_nome&select=*');
     var mats=[...new Set(_iscrizioni.map(function(i){return i.matricola_aziendale;}).filter(Boolean))];
     if(mats.length){
       var dips=await sbGet('Dipendenti','Matricola_Aziendale=in.('+mats.map(function(m){return encodeURIComponent(m);}).join(',')+')'+'&select=Matricola_Aziendale,Email,reparto,Qualifica');
